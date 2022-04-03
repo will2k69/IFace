@@ -23,14 +23,14 @@ public class Relationship {
         
         while (true) {
             System.out.println("O que deseja fazer?\nTecle 'a' para Aceitar\nTecle 'r' para Rejeitar\n'0' para sair");        
-            op = keyboard.next();
+            op = keyboard.nextLine();
 
             if (op.equals("0"))
                 break;
             
             else if (op.equals("a") || op.equals("A")) {
                 System.out.println("\nDigite o número da solicitação:\n(Tecle 'a' para aceitar TODAS)");
-                op = keyboard.next();
+                op = keyboard.nextLine();
                 if (op.equals("a") || op.equals("A")) {
 
                 }
@@ -56,6 +56,26 @@ public class Relationship {
 
                 }
             }
+        }
+    }
+
+    public void sendMessage(int idDestiny, int idUser, ArrayList<UserIface> list, String loginDestiny) {
+        if (list.get(idUser).conversations.get(loginDestiny) == null) {
+            ArrayList<String> frases = new ArrayList<String>();
+            list.get(idUser).conversations.put(loginDestiny, frases);
+            list.get(idDestiny).conversations.put(list.get(idUser).getLogin(), frases);
+        }
+        else {
+            System.out.println("\n==========================");
+            for (String historico: list.get(idUser).conversations.get(loginDestiny))
+                System.out.println(historico);
+        }
+        System.out.println("\nEnvie ':q' para sair do chat");
+        while (true) {
+            String msg = keyboard.nextLine();
+            if (msg.equals(":q"))
+                break;
+            list.get(idUser).conversations.get(loginDestiny).add(list.get(idUser).getLogin() + ": " + msg);
         }
     }
 }

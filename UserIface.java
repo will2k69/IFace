@@ -1,11 +1,14 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class UserIface{
-
+    Scanner kScanner = new Scanner(System.in);
+    HashMap<String, ArrayList<String>> conversations = new HashMap<String, ArrayList<String>>();
+    public ArrayList<Integer> pedidosDeAmizades = new ArrayList<Integer>();//contem 'ids' de users que querem ser amigos
+    public ArrayList<UserIface> friends = new ArrayList<UserIface>();
     private String name, login, pass;
     private int id;
-    protected ArrayList<Integer> pedidosDeAmizades = new ArrayList<Integer>();//contem 'ids' de users que querem ser amigos
-    protected ArrayList<UserIface> friends = new ArrayList<UserIface>();
 
     //constructor...
     public UserIface(String nome, String login, String senha) {
