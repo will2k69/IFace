@@ -1,16 +1,18 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UserPage {
-    private Scanner keyboard = new Scanner(System.in);
-    private ArrayList<UserIface> usersList = new ArrayList<UserIface>();
-    private int opcao;
+public class UserPage extends MainPageIface{
     
+    private Scanner keyboard = new Scanner(System.in);
+    private int opcao, idUser;
+    private Relationship relation = new Relationship();
+
 
     public boolean isUser(String login, String senha) {
-        for (UserIface u: usersList) {
-            if (u.getLogin().equals(login) && u.getPass().equals(senha))
+        for (UserIface u: this.usersList) {
+            if (u.getLogin().equals(login) && u.getPass().equals(senha)) {
+                this.idUser = u.getId();
                 return true;
+            }
         }
         return false;
     }
@@ -26,17 +28,9 @@ public class UserPage {
     }
 
     public void inicio(String login, String senha) {
-        int idUser=-1;
-        //'for' para pegar o index(id) do usuário em questão
-        for (int i=0; i < usersList.size(); i++) {
-            if (usersList.get(i).getLogin().equals(login) && usersList.get(i).getPass().equals(senha)) {
-                idUser = i;//<
-                break;
-            }
-        }
 
         while (true) {
-            System.out.printf("\n\nDigite uma opção:\n1 - Modificar dados de usuário\n2 - Informações da conta\n3 - Solicitar amizade\n4 - Ver solicitações de amizades\n7 - Excluir conta\n99 - Mostrar usuários\n0 - SAIR\n");
+            System.out.printf("\n\nDigite uma opção:\n1 - Modificar dados de usuário\n2 - Informações da conta\n3 - Solicitar amizade\n4 - Ver solicitações de amizades\n5 - Ver lista de amigos\n6 - Enviar mensagem\n7 - Excluir conta\n99 - Mostrar usuários\n0 - SAIR\n");
             opcao = keyboard.nextInt();
             
             if (opcao == 0) {
@@ -138,15 +132,8 @@ public class UserPage {
                                 break;
                             }
                         }
-                        if (nice) {//pedido de amizade para o id do usuario 'u'(o amigo)
-                            //usersList.get(id).solicitarAmizade(u.getId());
-                            usersList.get(u.getId()).pedidosDeAmizades.add(idUser);
-                            System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            System.out.println("Foi enviada uma solicitação de amizade para " + usersList.get(u.getId()).getLogin() + "!");
-                            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                        }
-                        //System.out.println(id + " " + u.getId());
-                            
+                        if (nice)//pedido de amizade para o id do usuario 'u'(o amigo)
+                            relation.solicitarAmizade(idUser, u.getId(), usersList);
                         break;
                     }
                 }
@@ -154,11 +141,14 @@ public class UserPage {
                     System.out.println("ERROR 404: Not Found");
             }
 
-            else if (opcao == 4) {
-                System.out.println("\n=============SOLICITAÇÕES DE AMIZADE=============");
-                for (int i=0; i < usersList.get(idUser).pedidosDeAmizades.size(); i++) {
-                    System.out.println(i + " - " + usersList.get(usersList.get(idUser).pedidosDeAmizades.get(i)).getLogin());
-                }
+            else if (opcao == 4)
+                relation.solicitacoes(idUser, usersList);
+
+            else if (opcao == 5)
+                usersList.get(idUser).listarAmigos();
+
+            else if (opcao == 6) {
+
             }
 
             else if (opcao == 7) {
@@ -182,28 +172,3 @@ public class UserPage {
         }
     }
 }
-
-/*else if (opcao == 4) {
-                System.out.println("========REMOVER USUÁRIO========");
-                System.out.println("Digite o nome: ");
-                String n = keyboard.next();
-                int nice=0;
-                for (int i=0; i < usersList.size() ; i++) {
-                    if (usersList.get(i).getName().equals(n)) {
-                        System.out.println("Tem certeza que deseja excluir sua conta? [S/N]");
-                        String confirmacao = keyboard.next();
-                        if (confirmacao.toUpperCase().equals("S")) {
-                            usersList.remove(i);
-                            System.out.printf("Usúario %s removido com sucesso!\n", n);
-                        }
-                        else
-                            System.out.println("Usuário não removido");
-                        nice=1;
-                        break;
-                    }
-                }
-                if (nice == 0)
-                    System.out.println("Usuário não encontrado!");
-                System.out.println("====================================");
-                System.out.println();
-            }*/

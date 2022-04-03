@@ -1,9 +1,12 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainPageIface {
+    
     protected static Scanner tec = new Scanner(System.in);
     protected static int opcao;
     protected static UserPage host = new UserPage();
+    protected ArrayList<UserIface> usersList = new ArrayList<UserIface>();
     public static void main(String[] args) {
         
         while (true) {
