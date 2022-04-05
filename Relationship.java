@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Relationship {
 
@@ -51,7 +53,7 @@ public class Relationship {
             
             else if (op.equals("r") || op.equals("R")) {
                 System.out.println("\nDigite o número da solicitação:\n(Tecle 'r' para rejeitar TODAS)");
-                op = keyboard.next();
+                op = keyboard.nextLine();
                 if (Integer.parseInt(op) >= 0) {
 
                 }
@@ -75,7 +77,65 @@ public class Relationship {
             String msg = keyboard.nextLine();
             if (msg.equals(":q"))
                 break;
+            String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
+            msg = "[" + timeStamp + "] " + list.get(idUser).getLogin() + ": " + msg;
             list.get(idUser).conversations.get(loginDestiny).add(list.get(idUser).getLogin() + ": " + msg);
+        }
+    }
+
+    public void sendMessageMyFeed(int idUser, ArrayList<UserIface> list) {
+        System.out.println("\n=====================FEED DE NOTÍCIAS=====================");
+        for (String historico: list.get(idUser).myFeed) {
+            for (int i=1; i < historico.length(); i++) {
+                System.out.print(historico.charAt(i));
+            }
+            System.out.println();
+        }
+        System.out.println("\nDigite ':q' para sair\nDigite ':f' no final da mensagem para ser vista apenas pelos migos ^_^\n");
+        while (true) {
+            String msg = keyboard.nextLine();
+            if (msg.equals(":q"))
+                break;
+            String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
+            if (msg.length() > 2 && (msg.charAt(msg.length()-1) == 'f' && msg.charAt(msg.length()-2) == ':')) {
+                msg = msg.substring(0, msg.length()-2);//para remover os dois últimos chars:':f'
+                msg = "f" + "[" + timeStamp + "] " + list.get(idUser).getLogin() + "(amigos)" + ": " + msg;
+            }
+                else
+                msg = "p" + "[" + timeStamp + "] " + list.get(idUser).getLogin() + "(público)" + ": " + msg;
+            list.get(idUser).myFeed.add(msg);
+        }
+    }
+
+    public void sendMessageFeed(int idUser, int iDestiny, ArrayList<UserIface> list) {
+        System.out.println("\n=============FEED DE NOTÍCIAS D@ " + list.get(iDestiny).getLogin() + "=============");
+        boolean friend=false;
+        for (UserIface u: list.get(iDestiny).friends) {
+            if (u.getId() == idUser) {
+                friend=true;
+                break;
+            }
+        }
+        
+        for (String historico: list.get(iDestiny).myFeed) {
+            if (historico.charAt(0) == 'f') {
+                if (!friend)
+                    continue;
+            }
+            for (int i=1; i < historico.length(); i++) {
+                System.out.print(historico.charAt(i));
+            }
+            System.out.println();
+        }
+
+        System.out.println("\nDigite ':q' para sair\n");
+        while (true) {
+            String msg = keyboard.nextLine();
+            if (msg.equals(":q"))
+                break;
+            String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
+            msg = "p" + "[" + timeStamp + "] " + list.get(idUser).getLogin() + ": " + msg;
+            list.get(iDestiny).myFeed.add(msg);
         }
     }
 }

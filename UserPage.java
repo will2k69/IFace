@@ -32,7 +32,7 @@ public class UserPage extends MainPageIface{
     public void inicio(String login, String senha) {
 
         while (true) {
-            System.out.printf("\n\nDigite uma opção:\n1 - Modificar dados de usuário\n2 - Informações da conta\n3 - Solicitar amizade\n4 - Ver solicitações de amizades\n5 - Ver lista de amigos\n6 - Enviar mensagem\n7 - Excluir conta\n99 - Mostrar usuários\n0 - SAIR\n");
+            System.out.printf("\n\nDigite uma opção:\n1 - Modificar dados de usuário\n2 - Informações da conta\n3 - Solicitar amizade\n4 - Ver solicitações de amizades\n5 - Ver lista de amigos\n6 - Enviar mensagem\n7 - Excluir conta\n8 - Acessar feed\n99 - Mostrar usuários\n0 - SAIR\n");
             opcao = keyboard.nextLine();
             
             if (opcao.equals("0")) {
@@ -75,7 +75,7 @@ public class UserPage extends MainPageIface{
                         System.out.print("Digite seu novo login: ");
                         while (true) {
                             boolean nice=true;
-                            String n = keyboard.next();
+                            String n = keyboard.nextLine();
                             for (UserIface uIface: usersList) {
                                 if (uIface.getLogin().equals(n)) {
                                     System.out.println("Login já existente! Tente outro.");
@@ -97,7 +97,7 @@ public class UserPage extends MainPageIface{
                         System.out.print("Digite sua nova senha: ");
                         while (true) {
                             boolean nice=true;
-                            String n = keyboard.next();
+                            String n = keyboard.nextLine();
                             for (UserIface uIface: usersList) {
                                 if (uIface.getPass().equals(n)) {
                                     System.out.println("Senha já existente! Tente outra.");
@@ -122,7 +122,7 @@ public class UserPage extends MainPageIface{
 
             else if (opcao.equals("3")) {
                 System.out.print("\n\nDigite o login de seu amigo: ");
-                String amg = keyboard.next();
+                String amg = keyboard.nextLine();
                 boolean nice=true, isUser=false;
                 for (UserIface u: usersList) {//verificar se o amigo é um usuário cadastrado no IFace
                     if (u.getLogin().equals(amg)) {
@@ -151,7 +151,7 @@ public class UserPage extends MainPageIface{
 
             else if (opcao.equals("6")) {
                 System.out.println("Pesquisar login: ");
-                String l = keyboard.next();
+                String l = keyboard.nextLine();
                 //AQUI EH NECESSARIO VERIFICAÇÃO
                 int i=-1;
                 for (UserIface u: usersList) {
@@ -165,7 +165,7 @@ public class UserPage extends MainPageIface{
 
             else if (opcao.equals("7")) {
                 System.out.print("\nTem certeza que deseja excluir sua conta?\n(Todos os seus dados serão excluidos permanentemente)\n1 - Sim\n2 - Não\nDigite: ");
-                opcao = keyboard.next();
+                opcao = keyboard.nextLine();
                 if (opcao.equals("1")) {
                     String n = usersList.get(idUser).getName();
                     usersList.remove(idUser);
@@ -173,6 +173,28 @@ public class UserPage extends MainPageIface{
                 }
             }
             
+            else if (opcao.equals("8")) {
+                System.out.println("\n1 - Acessar meu feed\n2 - Buscar feed");
+                opcao = keyboard.nextLine();
+                if (opcao.equals("1"))
+                    relation.sendMessageMyFeed(idUser, usersList);
+                else if (opcao.equals("2")) {
+                    System.out.println("Pesquisar login: ");
+                    String l = keyboard.nextLine();
+                    int iDestiny=-1;
+                    for (UserIface u: usersList) {
+                        if (u.getLogin().equals(l)) {
+                            iDestiny = u.getId();
+                            break;
+                        }
+                    }
+                    if (iDestiny != -1)
+                        relation.sendMessageFeed(idUser, iDestiny, usersList);
+                    else
+                        System.out.println("Usuário não encontrado!");
+                }
+            }
+
             else if (opcao.equals("99")) {
                 System.out.println("========LISTA DE USUÁRIOS========");
                 for (int i=0; i < usersList.size() ; i++) {

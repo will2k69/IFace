@@ -7,6 +7,7 @@ public class UserIface{
     HashMap<String, ArrayList<String>> conversations = new HashMap<String, ArrayList<String>>();
     public ArrayList<Integer> pedidosDeAmizades = new ArrayList<Integer>();//contem 'ids' de users que querem ser amigos
     public ArrayList<UserIface> friends = new ArrayList<UserIface>();
+    public ArrayList<String> myFeed = new ArrayList<String>();
     private String name, login, pass;
     private int id;
 
