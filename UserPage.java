@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
-public class UserPage extends MainPageIface{
-    
+public class UserPage extends MainPageIface{    
     private Scanner keyboard = new Scanner(System.in);
     private int idUser;
     private String opcao;
@@ -164,12 +163,14 @@ public class UserPage extends MainPageIface{
             }
 
             else if (opcao.equals("7")) {
-                System.out.print("\nTem certeza que deseja excluir sua conta?\n(Todos os seus dados serão excluidos permanentemente)\n1 - Sim\n2 - Não\nDigite: ");
+                System.out.print("\nTem certeza que deseja excluir sua conta?\n(Você pode recuperar seus dados posteriormente)\n1 - Sim\n2 - Não\nDigite aqui: ");
                 opcao = keyboard.nextLine();
                 if (opcao.equals("1")) {
-                    String n = usersList.get(idUser).getName();
+                    String l = usersList.get(idUser).getLogin();
+                    trash.put(l, usersList.get(idUser));
                     usersList.remove(idUser);
-                    System.out.printf("\n\nUsúario %s removido com sucesso!\n", n);
+                    System.out.printf("\n\nUsúario '%s' removido com sucesso!\n", l);
+                    break;
                 }
             }
             
