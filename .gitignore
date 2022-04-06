@@ -1,2 +1,4 @@
 a.in
 anotations.txt
+*.class
+teste.java

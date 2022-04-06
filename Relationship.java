@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class Relationship {
 
@@ -9,18 +10,21 @@ public class Relationship {
     String op;
 
 
-    public void solicitarAmizade(int idUser, int idFriend, ArrayList<UserIface> list) {
-        list.get(idFriend).pedidosDeAmizades.add(idUser);
+    public void solicitarAmizade(String user, String friend, HashMap<String, UserIface> list) {
+        list.get(friend).pedidosDeAmizades.add(user);
         System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Foi enviada uma solicitação de amizade para " + "'" + list.get(idFriend).getLogin() + "'" + "!");
+        System.out.println("Foi enviada uma solicitação de amizade para " + "'" + list.get(friend).getLogin() + "'" + "!");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
 
-    public void solicitacoes(int idUser, ArrayList<UserIface> list) {
+    public void solicitacoes(String loginUser, HashMap<String, UserIface> list) {
         System.out.println("\n=============SOLICITAÇÕES DE AMIZADE=============");
-        for (int i=0; i < list.get(idUser).pedidosDeAmizades.size(); i++) {
-            System.out.println(i + " - " + list.get(list.get(idUser).pedidosDeAmizades.get(i)).getLogin());
+        for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++) {
+            System.out.println(i + " - " + list.get(loginUser).pedidosDeAmizades.get(i));
         }
+        /*for (int i=0; i < list.get(idUser).pedidosDeAmizades.size(); i++) {
+            System.out.println(i + " - " +  list.get(list.get(idUser).pedidosDeAmizades.get(i)).getLogin());
+        }*/
         System.out.println("==================================================");
         
         while (true) {
@@ -38,15 +42,15 @@ public class Relationship {
                 }
                 else {
                     int iAux = Integer.parseInt(op);
-                    int idFriend = list.get(idUser).pedidosDeAmizades.get(iAux);
+                    String loginFriend = list.get(loginUser).pedidosDeAmizades.get(iAux);
                     //adicionando a lista de amigos de 'idUser' e 'idFriend'
-                    list.get(idUser).friends.add(list.get(idFriend));
-                    list.get(idFriend).friends.add(list.get(idUser));
+                    list.get(loginUser).friends.add(list.get(loginFriend));
+                    list.get(loginFriend).friends.add(list.get(loginUser));
                     //removendo o pedido de 'idFriend' da lista de solicitacoes de 'idUser'
-                    list.get(idUser).pedidosDeAmizades.remove(iAux);
+                    list.get(loginUser).pedidosDeAmizades.remove(iAux);
 
                     System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    System.out.println("Usuários " + "'" + list.get(idUser).getLogin() + "'" + " e " + "'" + list.get(idFriend).getLogin() + "'" + " agora são amig@s! ^_^");
+                    System.out.println("Usuários " + "'" + loginUser + "'" + " e " + "'" + loginFriend + "'" + " agora são amig@s! ^_^");
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 }
             }
@@ -61,15 +65,15 @@ public class Relationship {
         }
     }
 
-    public void sendMessage(int idDestiny, int idUser, ArrayList<UserIface> list, String loginDestiny) {
-        if (list.get(idUser).conversations.get(loginDestiny) == null) {
+    public void sendMessage(String loginUser, String loginDestiny, HashMap<String, UserIface> list) {
+        if (list.get(loginUser).conversations.get(loginDestiny) == null) {
             ArrayList<String> frases = new ArrayList<String>();
-            list.get(idUser).conversations.put(loginDestiny, frases);
-            list.get(idDestiny).conversations.put(list.get(idUser).getLogin(), frases);
+            list.get(loginUser).conversations.put(loginDestiny, frases);
+            list.get(loginDestiny).conversations.put(loginUser, frases);
         }
         else {
             System.out.println("\n==========================");
-            for (String historico: list.get(idUser).conversations.get(loginDestiny))
+            for (String historico: list.get(loginUser).conversations.get(loginDestiny))
                 System.out.println(historico);
         }
         System.out.println("\nEnvie ':q' para sair do chat");
@@ -78,20 +82,22 @@ public class Relationship {
             if (msg.equals(":q"))
                 break;
             String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-            msg = "[" + timeStamp + "] " + list.get(idUser).getLogin() + ": " + msg;
-            list.get(idUser).conversations.get(loginDestiny).add(list.get(idUser).getLogin() + ": " + msg);
+            msg = "[" + timeStamp + "] " + loginUser + ": " + msg;
+            list.get(loginUser).conversations.get(loginDestiny).add(loginUser + ": " + msg);
         }
     }
 
-    public void sendMessageMyFeed(int idUser, ArrayList<UserIface> list) {
+    public void sendMessageMyFeed(String loginUser, HashMap<String, UserIface> list) {
         System.out.println("\n=====================FEED DE NOTÍCIAS=====================");
-        for (String historico: list.get(idUser).myFeed) {
+        for (String historico: list.get(loginUser).myFeed) {
             for (int i=1; i < historico.length(); i++) {
                 System.out.print(historico.charAt(i));
             }
             System.out.println();
         }
+
         System.out.println("\nDigite ':q' para sair\nDigite ':f' no final da mensagem para ser vista apenas pelos migos ^_^\n");
+        
         while (true) {
             String msg = keyboard.nextLine();
             if (msg.equals(":q"))
@@ -99,25 +105,27 @@ public class Relationship {
             String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
             if (msg.length() > 2 && (msg.charAt(msg.length()-1) == 'f' && msg.charAt(msg.length()-2) == ':')) {
                 msg = msg.substring(0, msg.length()-2);//para remover os dois últimos chars:':f'
-                msg = "f" + "[" + timeStamp + "] " + list.get(idUser).getLogin() + "(amigos)" + ": " + msg;
+                msg = "f" + "[" + timeStamp + "] " + loginUser + "(amigos)" + ": " + msg;
             }
-                else
-                msg = "p" + "[" + timeStamp + "] " + list.get(idUser).getLogin() + "(público)" + ": " + msg;
-            list.get(idUser).myFeed.add(msg);
+            else
+                msg = "p" + "[" + timeStamp + "] " + loginUser + "(público)" + ": " + msg;
+            list.get(loginUser).myFeed.add(msg);
         }
     }
 
-    public void sendMessageFeed(int idUser, int iDestiny, ArrayList<UserIface> list) {
-        System.out.println("\n=============FEED DE NOTÍCIAS D@ " + list.get(iDestiny).getLogin() + "=============");
+    public void sendMessageFeed(String loginUser, String loginDestiny, HashMap<String, UserIface> list) {
+        System.out.println("\n=============FEED DE NOTÍCIAS D@ " + loginDestiny + "=============");
         boolean friend=false;
-        for (UserIface u: list.get(iDestiny).friends) {
-            if (u.getId() == idUser) {
+        for (UserIface u: list.get(loginDestiny).friends) {
+            //System.out.println(u.getLogin());
+            if (u.getLogin().equals(loginUser)) {
+                //System.out.println("EH AMG POUHA");
                 friend=true;
                 break;
             }
         }
         
-        for (String historico: list.get(iDestiny).myFeed) {
+        for (String historico: list.get(loginDestiny).myFeed) {
             if (historico.charAt(0) == 'f') {
                 if (!friend)
                     continue;
@@ -134,8 +142,8 @@ public class Relationship {
             if (msg.equals(":q"))
                 break;
             String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-            msg = "p" + "[" + timeStamp + "] " + list.get(idUser).getLogin() + ": " + msg;
-            list.get(iDestiny).myFeed.add(msg);
+            msg = "p" + "[" + timeStamp + "] " + loginUser + ": " + msg;
+            list.get(loginDestiny).myFeed.add(msg);
         }
     }
 }

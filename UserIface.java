@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class UserIface{
     Scanner kScanner = new Scanner(System.in);
     HashMap<String, ArrayList<String>> conversations = new HashMap<String, ArrayList<String>>();
-    public ArrayList<Integer> pedidosDeAmizades = new ArrayList<Integer>();//contem 'ids' de users que querem ser amigos
+    public ArrayList<String> pedidosDeAmizades = new ArrayList<String>();//contem 'logins' de users que querem ser amigos
     public ArrayList<UserIface> friends = new ArrayList<UserIface>();
     public ArrayList<String> myFeed = new ArrayList<String>();
     private String name, login, pass;

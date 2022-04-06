@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -7,7 +7,7 @@ public class MainPageIface {
     private static String opcao;
     private static UserPage host = new UserPage();
     public HashMap<String, UserIface> trash = new HashMap<String, UserIface>();
-    public ArrayList<UserIface> usersList = new ArrayList<UserIface>();
+    public HashMap<String, UserIface> usersList = new HashMap<String, UserIface>();
     public static void main(String[] args) {
         
         while (true) {
@@ -43,7 +43,7 @@ public class MainPageIface {
             
             else if (opcao.equals("2")) {
                 host.createUser();
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 System.out.println("Usuário cadastrado com sucesso!");
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
             }
@@ -56,15 +56,17 @@ public class MainPageIface {
                 
                 if (host.trash.get(log) != null) {
                     if (host.trash.get(log).getPass().equals(sen)) {
-                        host.usersList.add(host.trash.get(log));
+                        host.usersList.put(log, host.trash.get(log));
                         host.trash.remove(log);
-                        System.out.println("\nSua conta foi recuperada, ufa! ^_^");
+                        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        System.out.println("Sua conta foi recuperada, ufa! ^_^\n");
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                     }
                     else
                         System.out.println("\nSenha incorreta");
                 }
                 else
-                    System.out.println("\nUsuário não identificado!");
+                    System.out.println("\nUsuário não identificado!\n");
             }
 
             else if (opcao.equals("0"))
