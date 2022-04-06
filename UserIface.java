@@ -8,9 +8,11 @@ public class UserIface{
     public ArrayList<String> pedidosDeAmizades = new ArrayList<String>();//contem 'logins' de users que querem ser amigos
     public ArrayList<UserIface> friends = new ArrayList<UserIface>();
     public ArrayList<String> myFeed = new ArrayList<String>();
+    public ArrayList<String> communitys = new ArrayList<String>();//nomes das communitys as quais ele participa
     private String name, login, pass;
     private int id;
 
+    
     //constructor...
     public UserIface(String nome, String login, String senha) {
         setName(nome);

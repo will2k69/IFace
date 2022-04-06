@@ -22,9 +22,6 @@ public class Relationship {
         for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++) {
             System.out.println(i + " - " + list.get(loginUser).pedidosDeAmizades.get(i));
         }
-        /*for (int i=0; i < list.get(idUser).pedidosDeAmizades.size(); i++) {
-            System.out.println(i + " - " +  list.get(list.get(idUser).pedidosDeAmizades.get(i)).getLogin());
-        }*/
         System.out.println("==================================================");
         
         while (true) {
@@ -117,9 +114,7 @@ public class Relationship {
         System.out.println("\n=============FEED DE NOTÍCIAS D@ " + loginDestiny + "=============");
         boolean friend=false;
         for (UserIface u: list.get(loginDestiny).friends) {
-            //System.out.println(u.getLogin());
             if (u.getLogin().equals(loginUser)) {
-                //System.out.println("EH AMG POUHA");
                 friend=true;
                 break;
             }

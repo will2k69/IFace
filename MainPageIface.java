@@ -1,4 +1,4 @@
-//import java.util.ArrayList;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -8,14 +8,24 @@ public class MainPageIface {
     private static UserPage host = new UserPage();
     public HashMap<String, UserIface> trash = new HashMap<String, UserIface>();
     public HashMap<String, UserIface> usersList = new HashMap<String, UserIface>();
-    public static void main(String[] args) {
+    public HashMap<String, Community> communitys = new HashMap<String, Community>();//key=nome da community
+
+    static void clear() throws IOException, InterruptedException{
+        if (System.getProperty("os.name").contains("Windows"))
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        else
+            new ProcessBuilder("clear").inheritIO().start().waitFor();
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        clear();
         
         while (true) {
 
             System.out.println("================IFace================");
-            System.out.println("Bem-vind@ a página inicial do IFace!");
+            System.out.println("Bem-vind@ a página inicial do IF@ce!");
             System.out.println("=====================================");
-            System.out.printf("\nDigite:\n1 - Fazer login\n2 - Criar uma conta\n3 - Recuperar conta IFace\n0 - SAIR\n\nDigite aqui: ");
+            System.out.printf("\nDigite:\n1 - Fazer login\n2 - Criar uma conta\n3 - Recuperar conta IF@ce\n0 - SAIR\n\nDigite aqui: ");
             opcao = tec.nextLine();
             
             System.out.println();
@@ -71,8 +81,10 @@ public class MainPageIface {
 
             else if (opcao.equals("0"))
                 break;
-            else
-                System.out.println("\n--------------------\nDIGITA CERTO AE, PO\n--------------------\n");
+        
+            System.out.println("Tecle ENTER para sair: ");
+            String o = tec.nextLine();
+            clear();
         }
         tec.close();
     }
