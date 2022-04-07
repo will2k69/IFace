@@ -25,6 +25,7 @@ public class Community {
     public void addMember(UserIface user) {
         if (this.members.get(user.getLogin()) == null) {
             this.members.put(user.getLogin(), user);
+            user.myCommunitys.add(this.name);
             System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("Usuário " + "'" + user.getLogin() + "'" + " adicionado com sucesso!");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");

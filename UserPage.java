@@ -74,11 +74,11 @@ public class UserPage extends MainPageIface{
                 System.out.println("\n1 - Ver comunidades\n2 - Participar de uma comunidade\n3 - Criar comunidade");
                 opcao = keyboard.nextLine();
                 if (opcao.equals("1")) {
-                    if (!this.usersList.get(login).communitys.isEmpty()) {
+                    if (!this.usersList.get(login).myCommunitys.isEmpty()) {
                         System.out.println("===============COMUNIDADES===============");
                         System.out.println("Número - Nome da comunidade");
-                        for (int i=0; i < this.usersList.get(login).communitys.size(); i++)
-                            System.out.println(i + " - " + this.usersList.get(login).communitys.get(i));
+                        for (int i=0; i < this.usersList.get(login).myCommunitys.size(); i++)
+                            System.out.println(i + " - " + this.usersList.get(login).myCommunitys.get(i));
                         System.out.println("=========================================");
                         System.out.println("\nDigite o número da comunidade: ");
                     }
@@ -90,7 +90,7 @@ public class UserPage extends MainPageIface{
                     }
                     opcao = keyboard.nextLine();
                     int iAux = Integer.parseInt(opcao);
-                    String nomeDaComuna = this.usersList.get(login).communitys.get(iAux);
+                    String nomeDaComuna = this.usersList.get(login).myCommunitys.get(iAux);
                     this.communitys.get(nomeDaComuna).viewMessages();
                     
                     System.out.println("\nEnvie ':q' para sair do chat\n");
@@ -122,7 +122,7 @@ public class UserPage extends MainPageIface{
                     String d = keyboard.nextLine();
                     //Community novaComuna = new Community(n, login, d);
                     this.communitys.put(n, new Community(n, login, d));
-                    this.usersList.get(login).communitys.add(n);
+                    this.usersList.get(login).myCommunitys.add(n);
                     System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("Comunidade criada com sucesso! ^_^ ^_^");
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
