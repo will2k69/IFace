@@ -13,7 +13,7 @@ public class Relationship {
     public void solicitarAmizade(String user, String friend, HashMap<String, UserIface> list) {
         list.get(friend).pedidosDeAmizades.add(user);
         System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Foi enviada uma solicitação de amizade para " + "'" + list.get(friend).getLogin() + "'" + "!");
+        System.out.println("Foi enviada uma solicitação de amizade para " + "'" + friend + "'" + "!");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
 
@@ -69,7 +69,7 @@ public class Relationship {
             list.get(loginDestiny).conversations.put(loginUser, frases);
         }
         else {
-            System.out.println("\n==========================");
+            System.out.println("\n========================================");
             for (String historico: list.get(loginUser).conversations.get(loginDestiny))
                 System.out.println(historico);
         }
@@ -79,8 +79,8 @@ public class Relationship {
             if (msg.equals(":q"))
                 break;
             String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-            msg = "[" + timeStamp + "] " + loginUser + ": " + msg;
-            list.get(loginUser).conversations.get(loginDestiny).add(loginUser + ": " + msg);
+            String cpy = "[" + timeStamp + "] " + loginUser + ": " + msg;
+            list.get(loginUser).conversations.get(loginDestiny).add(cpy);
         }
     }
 

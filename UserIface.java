@@ -5,12 +5,11 @@ import java.util.Scanner;
 public class UserIface{
     Scanner kScanner = new Scanner(System.in);
     HashMap<String, ArrayList<String>> conversations = new HashMap<String, ArrayList<String>>();
-    public ArrayList<String> pedidosDeAmizades = new ArrayList<String>();//contem 'logins' de users que querem ser amigos
-    public ArrayList<UserIface> friends = new ArrayList<UserIface>();
-    public ArrayList<String> myFeed = new ArrayList<String>();
-    public ArrayList<String> communitys = new ArrayList<String>();//nomes das communitys as quais ele participa
+    protected ArrayList<String> pedidosDeAmizades = new ArrayList<String>();//contem 'logins' de users que querem ser amigos
+    protected ArrayList<UserIface> friends = new ArrayList<UserIface>();
+    protected ArrayList<String> myFeed = new ArrayList<String>();
+    protected ArrayList<String> communitys = new ArrayList<String>();//nomes das communitys as quais ele participa
     private String name, login, pass;
-    private int id;
 
     
     //constructor...
@@ -30,9 +29,8 @@ public class UserIface{
 
     public void listarAmigos() {
         System.out.println("\n\n========LISTA DE AMIGOS========");
-        for (UserIface uFriends: this.friends) {
+        for (UserIface uFriends: this.friends)
             System.out.println(uFriends.getLogin());
-        }
         System.out.println("===============================\n");
     }
 
@@ -46,9 +44,6 @@ public class UserIface{
     public String getLogin() {
         return this.login;
     }
-    public int getId() {
-        return this.id;
-    }
     //setters
     public void setName(String n) {
         this.name = n;
@@ -58,8 +53,5 @@ public class UserIface{
     }
     public void setPass(String p) {
         this.pass = p;
-    }
-    public void setId(int i) {
-        this.id = i;
     }
 }

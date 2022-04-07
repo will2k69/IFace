@@ -3,20 +3,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class MainPageIface {
-    private static Scanner tec = new Scanner(System.in);
+    private static Scanner keyboard = new Scanner(System.in);
     private static String opcao;
     private static UserPage host = new UserPage();
-    public HashMap<String, UserIface> trash = new HashMap<String, UserIface>();
-    public HashMap<String, UserIface> usersList = new HashMap<String, UserIface>();
-    public HashMap<String, Community> communitys = new HashMap<String, Community>();//key=nome da community
-
-    static void clear() throws IOException, InterruptedException{
-        if (System.getProperty("os.name").contains("Windows"))
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        else
-            new ProcessBuilder("clear").inheritIO().start().waitFor();
-    }
-
+    protected HashMap<String, UserIface> trash = new HashMap<String, UserIface>();
+    protected HashMap<String, UserIface> usersList = new HashMap<String, UserIface>();//key=login
+    protected HashMap<String, Community> communitys = new HashMap<String, Community>();//key=nome da community
     public static void main(String[] args) throws IOException, InterruptedException {
         clear();
         
@@ -26,24 +18,27 @@ public class MainPageIface {
             System.out.println("Bem-vind@ a página inicial do IF@ce!");
             System.out.println("=====================================");
             System.out.printf("\nDigite:\n1 - Fazer login\n2 - Criar uma conta\n3 - Recuperar conta IF@ce\n0 - SAIR\n\nDigite aqui: ");
-            opcao = tec.nextLine();
+            opcao = keyboard.nextLine();
             
             System.out.println();
             if (opcao.equals("1")) {
                 while (true) {
                     System.out.println("Digite seu login: ");
-                    String log = tec.nextLine();
+                    String log = keyboard.nextLine();
                     System.out.println("Digite sua senha: ");
-                    String sen = tec.nextLine();
+                    String sen = keyboard.nextLine();
 
                     if (host.isUser(log, sen)) {
+                        clear();
                         host.inicio(log, sen);
                         break;
                     }
                     else {
-                        System.out.println("\nERROR 404: User or pass not found");
+                        System.out.println("\n=========================================");
+                        System.out.println("ERROR 404: User or pass not found\n");
+                        System.out.println("=========================================\n");
                         System.out.printf("1 - Tentar de novo\n0 - SAIR\n");
-                        opcao = tec.nextLine();
+                        opcao = keyboard.nextLine();
 
                         if (opcao.equals("0"))
                             break;
@@ -51,18 +46,14 @@ public class MainPageIface {
                 }
             }
             
-            else if (opcao.equals("2")) {
+            else if (opcao.equals("2"))
                 host.createUser();
-                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                System.out.println("Usuário cadastrado com sucesso!");
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-            }
 
             else if (opcao.equals("3")) {
                 System.out.println("Digite seu login: ");
-                String log = tec.nextLine();
+                String log = keyboard.nextLine();
                 System.out.println("Digite sua senha: ");
-                String sen = tec.nextLine();
+                String sen = keyboard.nextLine();
                 
                 if (host.trash.get(log) != null) {
                     if (host.trash.get(log).getPass().equals(sen)) {
@@ -82,10 +73,17 @@ public class MainPageIface {
             else if (opcao.equals("0"))
                 break;
         
-            System.out.println("Tecle ENTER para sair: ");
-            String o = tec.nextLine();
+            System.out.println("tecle ENTER para sair: ");
+            keyboard.nextLine();
             clear();
         }
-        tec.close();
+        keyboard.close();
+    }
+
+    static void clear() throws IOException, InterruptedException{
+        if (System.getProperty("os.name").contains("Windows"))
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        else
+            new ProcessBuilder("clear").inheritIO().start().waitFor();
     }
 }

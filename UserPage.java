@@ -6,30 +6,44 @@ import java.util.Scanner;
 public class UserPage extends MainPageIface{    
     private Scanner keyboard = new Scanner(System.in);
     private String opcao;
+    private Relationship relation = new Relationship();
 
-
+    
     public boolean isUser(String login, String senha) {
-        if (usersList.get(login) != null) {
-            if (usersList.get(login).getPass().equals(senha))
+        if (this.usersList.get(login) != null) {
+            if (this.usersList.get(login).getPass().equals(senha))
                 return true;
         }
         return false;
     }
 
-    public void createUser() {//falta implementar verificação, se já existe nome, login e senha
-        System.out.println("Digite seu nome, login e senha:");
+    public void createUser() {
+        System.out.println("Digite seu nome:");
         String pegaNome = keyboard.nextLine();
-        String pegaLogin = keyboard.nextLine();
-        String pegaSenha = keyboard.nextLine();
-        
-        System.out.println("\n");
-        usersList.put(pegaLogin, new UserIface(pegaNome, pegaLogin, pegaSenha));
+        while (true) {
+            System.out.println("Digite seu login:");
+            String pegaLogin = keyboard.nextLine();
+            if (this.usersList.get(pegaLogin) != null) {
+                System.out.println("\n=========================================");
+                System.out.println("ERRO: Login já existente! Tente novamente\n");
+                System.out.println("=========================================\n");
+            }
+            else {
+                System.out.println("Digite sua senha:");
+                String pegaSenha = keyboard.nextLine();
+                this.usersList.put(pegaLogin, new UserIface(pegaNome, pegaLogin, pegaSenha));
+                break;
+            }
+        }
+
+        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Usuário cadastrado com sucesso!");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
 
     public void inicio(String login, String senha) throws IOException, InterruptedException {
-
         while (true) {
-            System.out.printf("\n\nDigite uma opção:\n1 - ACESSAR FEED\n2 - COMUNIDADES\n3 - ENVIAR MENSAGEM\n4 - SOLICITAR AMIZADE\n5 - VISUALIZAR SOLICITAÇÕES DE AMIZADES\n6 - LISTA DE AMIGOS\n7 - INFORMAÇÕES DA CONTA\n8 - MODIFICAR DADOS DE USUÁRIO\n\n9 - EXCLUIR CONTA IF@ce\n0 - SAIR\n99 - Mostrar usuários\n");
+            System.out.printf("\nDigite uma opção:\n1---->ACESSAR FEED\n2---->COMUNIDADES\n3---->ENVIAR MENSAGEM\n4---->SOLICITAR AMIZADE\n5---->VISUALIZAR SOLICITAÇÕES DE AMIZADES\n6---->LISTA DE AMIGOS\n7---->INFORMAÇÕES DA CONTA\n8---->MODIFICAR DADOS DE USUÁRIO\n\n9---->EXCLUIR CONTA IF@ce\n0---->SAIR\n99 - Mostrar usuários\n");
             opcao = keyboard.nextLine();
             
             if (opcao.equals("0")) {
@@ -40,20 +54,19 @@ public class UserPage extends MainPageIface{
             else if (opcao.equals("1")) {
                 System.out.println("\n1 - Acessar meu feed\n2 - Buscar feed");
                 opcao = keyboard.nextLine();
-                if (opcao.equals("1")) {
-                    Relationship relation = new Relationship();
-                    relation.sendMessageMyFeed(login, usersList);
-                }
+                if (opcao.equals("1"))
+                    relation.sendMessageMyFeed(login, this.usersList);
                 else if (opcao.equals("2")) {
                     System.out.println("Pesquisar login: ");
-                    String l = keyboard.nextLine();
+                    String loginDestiny = keyboard.nextLine();
                     
-                    if (usersList.get(l) != null) {
-                        Relationship relation = new Relationship();
-                        relation.sendMessageFeed(login, l, usersList);
+                    if (usersList.get(loginDestiny) != null)
+                        relation.sendMessageFeed(login, loginDestiny, this.usersList);
+                    else {
+                        System.out.println("\n=========================================");
+                        System.out.println("    Usuário não encontrado");
+                        System.out.println("=========================================\n");
                     }
-                    else
-                        System.out.println("\n\nUsuário não encontrado!");
                 }
             }
 
@@ -61,20 +74,23 @@ public class UserPage extends MainPageIface{
                 System.out.println("\n1 - Ver comunidades\n2 - Participar de uma comunidade\n3 - Criar comunidade");
                 opcao = keyboard.nextLine();
                 if (opcao.equals("1")) {
-                    if (usersList.get(login).communitys.size() != 0) {
+                    if (!this.usersList.get(login).communitys.isEmpty()) {
                         System.out.println("===============COMUNIDADES===============");
-                        for (int i=0; i < usersList.get(login).communitys.size(); i++)
-                            System.out.println(i + " - " + usersList.get(login).communitys.get(i));
+                        System.out.println("Número - Nome da comunidade");
+                        for (int i=0; i < this.usersList.get(login).communitys.size(); i++)
+                            System.out.println(i + " - " + this.usersList.get(login).communitys.get(i));
                         System.out.println("=========================================");
                         System.out.println("\nDigite o número da comunidade: ");
                     }
                     else {
-                        System.out.println("\nUsuário não pertence a alguma comunidade!\n");
+                        System.out.println("\n=========================================");
+                        System.out.println("ERROR: User don't pertence there's a community\n");
+                        System.out.println("=========================================\n");
                         continue;
                     }
                     opcao = keyboard.nextLine();
                     int iAux = Integer.parseInt(opcao);
-                    String nomeDaComuna = usersList.get(login).communitys.get(iAux);
+                    String nomeDaComuna = this.usersList.get(login).communitys.get(iAux);
                     this.communitys.get(nomeDaComuna).viewMessages();
                     
                     System.out.println("\nEnvie ':q' para sair do chat\n");
@@ -90,76 +106,75 @@ public class UserPage extends MainPageIface{
                 else if (opcao.equals("2")) {
                     System.out.println("Digite o nome da comunidade: ");
                     String nameCommunity = keyboard.nextLine();
-                    if (communitys.get(nameCommunity) != null) {
-                        communitys.get(nameCommunity).addMember(usersList.get(login));
+                    if (this.communitys.get(nameCommunity) != null) {
+                        this.communitys.get(nameCommunity).addMember(this.usersList.get(login));
                     }
                 }
                 else if (opcao.equals("3")) {
                     System.out.println("Digite o nome e descrição da comunidade:");
                     String n = keyboard.nextLine();
-                    if (communitys.get(n) != null) {
-                        System.out.println("\nComunidade já existente!");
+                    if (this.communitys.get(n) != null) {
+                        System.out.println("\n=========================================");
+                        System.out.println("ERROR: Community already existent\n");
+                        System.out.println("=========================================\n");
                         continue;
                     }
                     String d = keyboard.nextLine();
-                    Community novaComuna = new Community(n, login, d);
-                    communitys.put(n, novaComuna);
-                    usersList.get(login).communitys.add(n);
+                    //Community novaComuna = new Community(n, login, d);
+                    this.communitys.put(n, new Community(n, login, d));
+                    this.usersList.get(login).communitys.add(n);
                     System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    System.out.println("Comunidade criada com sucesso!");
+                    System.out.println("Comunidade criada com sucesso! ^_^ ^_^");
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 }
             }
 
             else if (opcao.equals("3")) {
                 System.out.println("Pesquisar login: ");
-                String l = keyboard.nextLine();
-                //AQUI EH NECESSARIO VERIFICAÇÃO
-                if (usersList.get(l) != null) {
-
+                String loginDestiny = keyboard.nextLine();
+                if (this.usersList.get(loginDestiny) != null)
+                    relation.sendMessage(login, loginDestiny, this.usersList);
+                else {
+                    System.out.println("\n=========================================");
+                    System.out.println("ERRO: User not found");
+                    System.out.println("=========================================\n");
                 }
-                
-                Relationship relation = new Relationship();
-                relation.sendMessage(login, l, usersList);
             }
 
             else if (opcao.equals("4")) {
-                System.out.print("\n\nDigite o login de seu amigo: ");
+                System.out.print("\nDigite o login de seu amigo: ");
                 String amg = keyboard.nextLine();
                 boolean nice=true, isUser=false;
                 
-                if (usersList.get(amg) != null) {//verificar se o amigo é um usuário cadastrado no IFace
+                if (this.usersList.get(amg) != null) {//verificar se o amigo é um usuário cadastrado no IFace
                     isUser=true;
-                    for (UserIface uFI: usersList.get(login).friends) {
-                        if (uFI.getLogin().equals(amg)) {
+                    for (UserIface uFriend: this.usersList.get(login).friends) {
+                        if (uFriend.getLogin().equals(amg)) {
                             System.out.println("Usuário " + "'" + amg + "'" + " já pertence a sua lista de amigos!");
                             nice=false;
                             break;
                         }
                     }
-                    if (nice) {//pedido de amizade para o id do usuario 'u'(o amigo)
-                        Relationship relation = new Relationship();    
-                        relation.solicitarAmizade(login, amg, usersList);
-                    }
+                    if (nice)
+                        relation.solicitarAmizade(login, amg, this.usersList);
                 }
 
                 if (!isUser)
                     System.out.println("ERROR 404: Not Found");
             }
 
-            else if (opcao.equals("5")) {
-                Relationship relation = new Relationship();
+            else if (opcao.equals("5"))
                 relation.solicitacoes(login, usersList);
-            }
+            
             else if (opcao.equals("6"))
-                usersList.get(login).listarAmigos();
-
+                this.usersList.get(login).listarAmigos();
+        
             else if (opcao.equals("7"))
-                usersList.get(login).status();
+                this.usersList.get(login).status();
 
             else if (opcao.equals("8")) {
                 while (true) {
-                    System.out.println("\n\nO que deseja alterar?");
+                    System.out.println("\nO que deseja alterar?");
                     System.out.print("1 - Nome\n2 - Login\n3 - Senha\n0 - VOLTAR\nDigite aqui: ");
                     opcao = keyboard.nextLine();
                     
@@ -171,15 +186,17 @@ public class UserPage extends MainPageIface{
                         while (true) {
                             boolean nice=true;
                             String n = keyboard.nextLine();
-                            for (UserIface uIface: usersList.values()) {
+                            for (UserIface uIface: this.usersList.values()) {
                                 if (uIface.getName().equals(n)) {
-                                    System.out.println("Nome de usuário já existente! Tente outro.");
+                                    System.out.println("\n=========================================");
+                                    System.out.println("ERROR: Username already existing! Try again.");
+                                    System.out.println("=========================================\n");
                                     nice = false;
                                     break;
                                 }
                             }
                             if (nice) {
-                                usersList.get(login).setName(n);
+                                this.usersList.get(login).setName(n);
                                 System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                                 System.out.println(" Nome de usuário alterado com sucesso!");
                                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -193,13 +210,18 @@ public class UserPage extends MainPageIface{
                         while (true) {
                             boolean nice=true;
                             String l = keyboard.nextLine();
-                            if (usersList.get(l) != null) {
-                                System.out.println("Login já existente! Tente outro.");
+                            if (this.usersList.get(l) != null) {
+                                System.out.println("\n=========================================");
+                                System.out.println("ERROR: Login already existing! Try again.");
+                                System.out.println("=========================================\n");
                                 nice = false;
                             }
 
                             if (nice) {
-                                usersList.get(login).setLogin(l);
+                                this.usersList.get(login).setLogin(l);
+                                this.usersList.put(l, this.usersList.get(login));
+                                this.usersList.remove(login);
+                                login = l;
                                 System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                                 System.out.println("     Login alterado com sucesso!");
                                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -213,13 +235,15 @@ public class UserPage extends MainPageIface{
                         while (true) {
                             boolean nice=true;
                             String s = keyboard.nextLine();
-                            if (usersList.get(login).getPass().equals(s)) {
-                                System.out.println("Senha já existente! Tente outra.");
+                            if (this.usersList.get(login).getPass().equals(s)) {
+                                System.out.println("\n=========================================");
+                                System.out.println("ERROR: Password already existing! Try again.");
+                                System.out.println("=========================================\n");
                                 nice = false;
                             }
                             
                             if (nice) {
-                                usersList.get(login).setPass(s);
+                                this.usersList.get(login).setPass(s);
                                 System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                                 System.out.println("     Senha alterada com sucesso!");
                                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -235,8 +259,8 @@ public class UserPage extends MainPageIface{
                 opcao = keyboard.nextLine();
                 if (opcao.equals("1")) {
                     String l = login;
-                    trash.put(l, usersList.get(login));
-                    usersList.remove(login);
+                    trash.put(l, this.usersList.get(login));
+                    this.usersList.remove(login);
                     System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.printf("Usúario '%s' removido com sucesso!\n", l);
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -246,14 +270,14 @@ public class UserPage extends MainPageIface{
 
             else if (opcao.equals("99")) {
                 System.out.println("========LISTA DE USUÁRIOS========");
-                for (String key: usersList.keySet()) {
-                    System.out.printf("Nome: %s\nLogin: %s\nSenha: %s\n", usersList.get(key).getName(), usersList.get(key).getLogin(), usersList.get(key).getPass());
+                for (String key: this.usersList.keySet()) {
+                    System.out.printf("Nome: %s\nLogin: %s\nSenha: %s\n", this.usersList.get(key).getName(), this.usersList.get(key).getLogin(), this.usersList.get(key).getPass());
                     System.out.println();
                 }
             }
 
             System.out.println("Tecle ENTER para sair: ");
-            String o = keyboard.nextLine();
+            keyboard.nextLine();
             clear();
         }
     }
