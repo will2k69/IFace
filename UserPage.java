@@ -43,7 +43,7 @@ public class UserPage extends MainPageIface{
 
     public void inicio(String login, String senha) throws IOException, InterruptedException {
         while (true) {
-            System.out.printf("\nDigite uma opção:\n1---->ACESSAR FEED\n2---->COMUNIDADES\n3---->ENVIAR MENSAGEM\n4---->SOLICITAR AMIZADE\n5---->VISUALIZAR SOLICITAÇÕES DE AMIZADES\n6---->LISTA DE AMIGOS\n7---->INFORMAÇÕES DA CONTA\n8---->MODIFICAR DADOS DE USUÁRIO\n\n9---->EXCLUIR CONTA IF@ce\n0---->SAIR\n99 - Mostrar usuários\n");
+            System.out.printf("\nDigite uma opção:\n1---->ACESSAR FEED\n2---->COMUNIDADES\n3---->ENVIAR MENSAGEM\n4---->SOLICITAR AMIZADE\n5---->VISUALIZAR SOLICITAÇÕES DE AMIZADES\n6---->LISTA DE AMIGOS\n7---->INFORMAÇÕES DA CONTA\n8---->MODIFICAR DADOS DE USUÁRIO\n\n9---->EXCLUIR CONTA IF@ce\n0---->SAIR\n");
             opcao = keyboard.nextLine();
             
             if (opcao.equals("0")) {
@@ -268,13 +268,13 @@ public class UserPage extends MainPageIface{
                 }
             }
 
-            else if (opcao.equals("99")) {
+            /*else if (opcao.equals("99")) {
                 System.out.println("========LISTA DE USUÁRIOS========");
                 for (String key: this.usersList.keySet()) {
                     System.out.printf("Nome: %s\nLogin: %s\nSenha: %s\n", this.usersList.get(key).getName(), this.usersList.get(key).getLogin(), this.usersList.get(key).getPass());
                     System.out.println();
                 }
-            }
+            }*/
 
             System.out.println("Tecle ENTER para sair: ");
             keyboard.nextLine();
