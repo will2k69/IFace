@@ -13,7 +13,6 @@ public class MainPageIface {
         clear();
         
         while (true) {
-
             System.out.println("================IFace================");
             System.out.println("Bem-vind@ a página inicial do IF@ce!");
             System.out.println("=====================================");
@@ -80,6 +79,7 @@ public class MainPageIface {
         keyboard.close();
     }
 
+    //função para limpar tela
     static void clear() throws IOException, InterruptedException{
         if (System.getProperty("os.name").contains("Windows"))
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
