@@ -8,7 +8,7 @@ public class MainPageIface {
     private static UserPage host = new UserPage();
     protected HashMap<String, UserIface> trash = new HashMap<String, UserIface>();
     protected HashMap<String, UserIface> usersList = new HashMap<String, UserIface>();//key=login
-    protected HashMap<String, Community> communitys = new HashMap<String, Community>();//key=nome da community
+    protected HashMap<String, Comunidades> communitys = new HashMap<String, Comunidades>();//key=nome da community
     public static void main(String[] args) throws IOException, InterruptedException {
         clear();
         

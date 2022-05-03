@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class UserPage extends MainPageIface{    
     private Scanner keyboard = new Scanner(System.in);
     private String opcao;
-    private Relationship relation = new Relationship();
+    private Relacionamentos relation = new Relacionamentos();
 
     
     public boolean isUser(String login, String senha) {
@@ -122,7 +122,7 @@ public class UserPage extends MainPageIface{
                     }
                     String d = keyboard.nextLine();
                     //Community novaComuna = new Community(n, login, d);
-                    this.communitys.put(n, new Community(n, login, d));
+                    this.communitys.put(n, new Comunidades(n, login, d));
                     this.usersList.get(login).myCommunitys.add(n);
                     System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("Comunidade criada com sucesso! ^_^ ^_^");
