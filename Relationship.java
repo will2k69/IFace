@@ -19,23 +19,36 @@ public class Relationship {
 
     public void solicitacoes(String loginUser, HashMap<String, UserIface> list) {
         System.out.println("\n=============SOLICITAÇÕES DE AMIZADE=============");
-        for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++) {
+        for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++)
             System.out.println(i + " - " + list.get(loginUser).pedidosDeAmizades.get(i));
-        }
         System.out.println("==================================================");
         
         while (true) {
-            System.out.println("O que deseja fazer?\nTecle 'a' para Aceitar\nTecle 'r' para Rejeitar\n'0' para sair");        
+            System.out.println("O que deseja fazer?\nTecle 'a' para Aceitar\nTecle 'r' para Rejeitar\n'0' para sair");
+            System.out.println("TAMO AQUI");
+            //keyboard.reset();
             op = keyboard.nextLine();
-
+            System.out.println(op);
             if (op.equals("0"))
                 break;
             
             else if (op.equals("a") || op.equals("A")) {
                 System.out.println("\nDigite o número da solicitação:\n(Tecle 'a' para aceitar TODAS)");
                 op = keyboard.nextLine();
-                if (op.equals("a") || op.equals("A")) {
 
+                System.out.println("PUTZ 1");
+                if (op.equals("a") || op.equals("A")) {
+                    System.out.println("OPOHA: " + list.get(loginUser).pedidosDeAmizades.size());
+                    
+                    /*for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++) {
+                        String loginFriend = list.get(loginUser).pedidosDeAmizades.get(i);
+                        list.get(loginUser).friends.add(list.get(loginFriend));
+                        list.get(loginFriend).friends.add(list.get(loginUser));
+                        //list.get(loginUser).pedidosDeAmizades.remove(i);
+                    }*/
+                    System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    System.out.println("Solicitações aceitas com sucesso!");
+                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 }
                 else {
                     int iAux = Integer.parseInt(op);
@@ -59,6 +72,7 @@ public class Relationship {
 
                 }
             }
+            System.out.println("\nPUTZ 2\n");
         }
     }
 

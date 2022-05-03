@@ -43,6 +43,7 @@ public class UserPage extends MainPageIface{
 
     public void inicio(String login, String senha) throws IOException, InterruptedException {
         while (true) {
+            System.out.println("Bem-vind@, " + login + "!");
             System.out.printf("\nDigite uma opção:\n1---->ACESSAR FEED\n2---->COMUNIDADES\n3---->ENVIAR MENSAGEM\n4---->SOLICITAR AMIZADE\n5---->VISUALIZAR SOLICITAÇÕES DE AMIZADES\n6---->LISTA DE AMIGOS\n7---->INFORMAÇÕES DA CONTA\n8---->MODIFICAR DADOS DE USUÁRIO\n\n9---->EXCLUIR CONTA IF@ce\n0---->SAIR\n");
             opcao = keyboard.nextLine();
             
@@ -144,10 +145,15 @@ public class UserPage extends MainPageIface{
             else if (opcao.equals("4")) {
                 System.out.print("\nDigite o login de seu amigo: ");
                 String amg = keyboard.nextLine();
-                boolean nice=true, isUser=false;
-                
+                boolean nice=true;
+                if (amg.equals(login)) {
+                    System.out.println("\n=========================================");
+                    System.out.println("ERROR: THIS ARE YOU! TRY ANOTHER LOGIN :/");
+                    System.out.println("=========================================\n");
+                    continue;
+                }
+
                 if (this.usersList.get(amg) != null) {//verificar se o amigo é um usuário cadastrado no IFace
-                    isUser=true;
                     for (UserIface uFriend: this.usersList.get(login).friends) {
                         if (uFriend.getLogin().equals(amg)) {
                             System.out.println("Usuário " + "'" + amg + "'" + " já pertence a sua lista de amigos!");
@@ -158,13 +164,12 @@ public class UserPage extends MainPageIface{
                     if (nice)
                         relation.solicitarAmizade(login, amg, this.usersList);
                 }
-
-                if (!isUser)
+                else
                     System.out.println("ERROR 404: Not Found");
             }
 
             else if (opcao.equals("5"))
-                relation.solicitacoes(login, usersList);
+                relation.solicitacoes(login, this.usersList);
             
             else if (opcao.equals("6"))
                 this.usersList.get(login).listarAmigos();
