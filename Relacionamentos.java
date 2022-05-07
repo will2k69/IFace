@@ -16,12 +16,6 @@ public class Relacionamentos implements Relationship{
         System.out.println("Foi enviada uma solicitação de amizade para " + "'" + friend + "'" + "!");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
-    /*public void solicitarAmizade(String user, String friend, HashMap<String, UserIface> list) {
-        list.get(friend).pedidosDeAmizades.add(user);
-        System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Foi enviada uma solicitação de amizade para " + "'" + friend + "'" + "!");
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    }*/
 
     @Override
     public void solicitacoes(String loginUser, HashMap<String, UserIface> list) {
@@ -32,29 +26,25 @@ public class Relacionamentos implements Relationship{
         
         while (true) {
             System.out.println("O que deseja fazer?\nTecle 'a' para Aceitar\nTecle 'r' para Rejeitar\n'0' para sair");
-            //System.out.println("TAMO AQUI");
-            //keyboard.reset();
             op = keyboard.nextLine();
-            //System.out.println(op);
             if (op.equals("0"))
                 break;
             
             else if (op.equals("a") || op.equals("A")) {
-                System.out.println("\nDigite o número da solicitação:\n(Tecle 'a' para aceitar TODAS)");
+                System.out.println("\nDigite o número da solicitação:\n(Tecle 'x' para aceitar TODAS)");
                 op = keyboard.nextLine();
 
-                //System.out.println("PUTZ 1");
-                if (op.equals("a") || op.equals("A")) {
-                    //System.out.println("OPOHA: " + list.get(loginUser).pedidosDeAmizades.size());
-                    
-                    /*for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++) {
-                        String loginFriend = list.get(loginUser).pedidosDeAmizades.get(i);
+                if (op.equals("x") || op.equals("X")) {
+                    System.out.println("ENTRE AQUI, PLEASE");
+                
+                    for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++) {
+                        System.out.println(i);
+                        /*String loginFriend = list.get(loginUser).pedidosDeAmizades.get(i);
                         list.get(loginUser).friends.add(list.get(loginFriend));
-                        list.get(loginFriend).friends.add(list.get(loginUser));
-                        //list.get(loginUser).pedidosDeAmizades.remove(i);
-                    }*/
+                        list.get(loginFriend).friends.add(list.get(loginUser));*/
+                    }
                     System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    System.out.println("Solicitações aceitas com sucesso!");
+                    System.out.println("\tSolicitações aceitas com sucesso!");
                     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 }
                 else {
@@ -79,7 +69,6 @@ public class Relacionamentos implements Relationship{
 
                 }
             }
-            //System.out.println("\nPUTZ 2\n");
         }
     }
 

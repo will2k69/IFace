@@ -10,6 +10,7 @@ public class UserIface{
     protected ArrayList<String> myFeed = new ArrayList<String>();
     protected ArrayList<String> myCommunitys = new ArrayList<String>();//nomes das communitys as quais ele participa
     private String name, login, pass;
+    protected HashMap<String, UserData<Integer>> dataMap = new HashMap<String, UserData<Integer>>();
 
     
     //constructor...
@@ -18,7 +19,7 @@ public class UserIface{
         setLogin(login);
         setPass(senha);
     }//<
-    
+
     public void status() {
         System.out.println("\n\n========STATUS========");
         System.out.println("Nome: " + getName());
