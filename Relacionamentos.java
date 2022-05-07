@@ -35,13 +35,13 @@ public class Relacionamentos implements Relationship{
                 op = keyboard.nextLine();
 
                 if (op.equals("x") || op.equals("X")) {
-                    System.out.println("ENTRE AQUI, PLEASE");
+                    //System.out.println("ENTRE AQUI, PLEASE");
                 
                     for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++) {
-                        System.out.println(i);
-                        /*String loginFriend = list.get(loginUser).pedidosDeAmizades.get(i);
+                        System.out.println("i = " + i);
+                        String loginFriend = list.get(loginUser).pedidosDeAmizades.get(i);
                         list.get(loginUser).friends.add(list.get(loginFriend));
-                        list.get(loginFriend).friends.add(list.get(loginUser));*/
+                        list.get(loginFriend).friends.add(list.get(loginUser));
                     }
                     System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("\tSolicitações aceitas com sucesso!");
