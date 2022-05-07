@@ -31,10 +31,10 @@ public class Relacionamentos implements Relationship{
                 break;
             
             else if (op.equals("a") || op.equals("A")) {
-                System.out.println("\nDigite o número da solicitação:\n(Tecle 'x' para aceitar TODAS)");
+                System.out.println("\nDigite o número da solicitação:\n(Tecle 'y' para aceitar TODAS)");
                 op = keyboard.nextLine();
 
-                if (op.equals("x") || op.equals("X")) {
+                if (op.equals("y") || op.equals("Y")) {
                     //System.out.println("ENTRE AQUI, PLEASE");
                 
                     for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++) {
