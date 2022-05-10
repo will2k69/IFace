@@ -20,8 +20,9 @@ public class Relacionamentos implements Relationship{
     @Override
     public void solicitacoes(String loginUser, HashMap<String, UserIface> list) {
         System.out.println("\n=============SOLICITAÇÕES DE AMIZADE=============");
+        System.out.println("n° solicitação | login");
         for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++)
-            System.out.println(i + " - " + list.get(loginUser).pedidosDeAmizades.get(i));
+            System.out.println(i + "              | " + list.get(loginUser).pedidosDeAmizades.get(i));
         System.out.println("==================================================");
         
         while (true) {
@@ -31,17 +32,15 @@ public class Relacionamentos implements Relationship{
                 break;
             
             else if (op.equals("a") || op.equals("A")) {
-                System.out.println("\nDigite o número da solicitação:\n(Tecle 'y' para aceitar TODAS)");
+                System.out.println("\nDigite o número da solicitação:\n(Tecle 't' para aceitar TODAS)");
                 op = keyboard.nextLine();
 
-                if (op.equals("y") || op.equals("Y")) {
-                    //System.out.println("ENTRE AQUI, PLEASE");
-                
-                    for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++) {
-                        System.out.println("i = " + i);
+                if (op.equals("t") || op.equals("T")) {
+                    for (int i=list.get(loginUser).pedidosDeAmizades.size()-1; i >= 0; i--) {
                         String loginFriend = list.get(loginUser).pedidosDeAmizades.get(i);
                         list.get(loginUser).friends.add(list.get(loginFriend));
                         list.get(loginFriend).friends.add(list.get(loginUser));
+                        list.get(loginUser).pedidosDeAmizades.remove(i);
                     }
                     System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("\tSolicitações aceitas com sucesso!");

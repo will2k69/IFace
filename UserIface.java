@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UserIface{
@@ -10,7 +11,8 @@ public class UserIface{
     protected ArrayList<String> myFeed = new ArrayList<String>();
     protected ArrayList<String> myCommunitys = new ArrayList<String>();//nomes das communitys as quais ele participa
     private String name, login, pass;
-    protected HashMap<String, UserData<Integer>> dataMap = new HashMap<String, UserData<Integer>>();
+    protected HashMap<String, UserData<Long>> dataLongInt = new HashMap<String, UserData<Long>>();
+    protected HashMap<String, UserData<String>> dataStr = new HashMap<String, UserData<String>>();
 
     
     //constructor...
@@ -25,6 +27,9 @@ public class UserIface{
         System.out.println("Nome: " + getName());
         System.out.println("Login: " + getLogin());
         System.out.println("Senha: " + getPass());
+        for (Map.Entry<String, UserData<Long>> entrada : dataLongInt.entrySet()) {
+            System.out.println(entrada.getKey() + ": " + entrada.getValue().getValue());
+        }
         System.out.println("======================");
     }
 

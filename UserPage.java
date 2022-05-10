@@ -3,11 +3,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
 
-public class UserPage extends MainPageIface{    
+public class UserPage extends MainPageIface{
     private Scanner keyboard = new Scanner(System.in);
     private String opcao;
     private Relacionamentos relation = new Relacionamentos();
-
     
     public boolean isUser(String login, String senha) {
         if (this.usersList.get(login) != null) {
@@ -180,7 +179,7 @@ public class UserPage extends MainPageIface{
             else if (opcao.equals("8")) {
                 while (true) {
                     System.out.println("\nO que deseja alterar?");
-                    System.out.print("1 - Nome\n2 - Login\n3 - Senha\n4 - Número de celular\n5 - Endereço\n0 - VOLTAR\nDigite aqui: ");
+                    System.out.print("1 - Nome\n2 - Login\n3 - Senha\n4 - Número de celular\n5 - Endereço\n6 - CPF\n0 - VOLTAR\nDigite aqui: ");
                     opcao = keyboard.nextLine();
                     
                     if (opcao.equals("0"))
@@ -260,7 +259,10 @@ public class UserPage extends MainPageIface{
                     if (opcao.equals("4")) {
                         System.out.println("Digite seu número de celular: ");
                         String s = keyboard.nextLine();
-                        this.usersList.get(login).dataMap.put("celular", new UserData<Integer>(Integer.parseInt(s)));
+                        this.usersList.get(login).dataLongInt.put("Celular", new UserData<Long>(Long.parseLong(s), "Celular"));
+                        System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        System.out.println("\tNúmero adicionado com sucesso!");
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                     }
                 }
             }
