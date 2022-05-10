@@ -179,7 +179,7 @@ public class UserPage extends MainPageIface{
             else if (opcao.equals("8")) {
                 while (true) {
                     System.out.println("\nO que deseja alterar?");
-                    System.out.print("1 - Nome\n2 - Login\n3 - Senha\n4 - Número de celular\n5 - Endereço\n6 - CPF\n0 - VOLTAR\nDigite aqui: ");
+                    System.out.print("1 - Nome\n2 - Login\n3 - Senha\n4 - Número de celular (1)\n5 - Número de celular (2)\n6 - Endereço\n7 - Data de nascimento\n8 - Idade\n9 - Signo\n\n0 - VOLTAR\nDigite aqui: ");
                     opcao = keyboard.nextLine();
                     
                     if (opcao.equals("0"))
