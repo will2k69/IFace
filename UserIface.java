@@ -27,9 +27,10 @@ public class UserIface{
         System.out.println("Nome: " + getName());
         System.out.println("Login: " + getLogin());
         System.out.println("Senha: " + getPass());
-        for (Map.Entry<String, UserData<Long>> entrada : dataLongInt.entrySet()) {
+        for (Map.Entry<String, UserData<Long>> entrada : dataLongInt.entrySet())
             System.out.println(entrada.getKey() + ": " + entrada.getValue().getValue());
-        }
+        for (Map.Entry<String, UserData<String>> entrada : dataStr.entrySet())
+            System.out.println(entrada.getKey() + ": " + entrada.getValue().getValue());
         System.out.println("======================");
     }
 

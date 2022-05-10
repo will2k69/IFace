@@ -62,10 +62,24 @@ public class Relacionamentos implements Relationship{
             }
             
             else if (op.equals("r") || op.equals("R")) {
-                System.out.println("\nDigite o número da solicitação:\n(Tecle 'r' para rejeitar TODAS)");
+                System.out.println("\nDigite o número da solicitação:\n(Tecle 't' para rejeitar TODAS)");
                 op = keyboard.nextLine();
-                if (Integer.parseInt(op) >= 0) {
 
+                if (op.equals("t") || op.equals("T")) {
+                    for (int i=list.get(loginUser).pedidosDeAmizades.size()-1; i >= 0; i--)
+                        list.get(loginUser).pedidosDeAmizades.remove(i);
+                    System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    System.out.println("\tTodas as solicitações foram rejeitadas.");
+                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                }
+                else {
+                    int iAux = Integer.parseInt(op);
+                    String loginFriend = list.get(loginUser).pedidosDeAmizades.get(iAux);
+                    list.get(loginUser).pedidosDeAmizades.remove(iAux);
+
+                    System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    System.out.println("A solicitação do usuário " + "'" + loginFriend + "'" + " foi rejeitada!");
+                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 }
             }
         }
