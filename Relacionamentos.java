@@ -35,29 +35,33 @@ public class Relacionamentos implements Relationship{
                 System.out.println("\nDigite o número da solicitação:\n(Tecle 't' para aceitar TODAS)");
                 op = keyboard.nextLine();
 
-                if (op.equals("t") || op.equals("T")) {
-                    for (int i=list.get(loginUser).pedidosDeAmizades.size()-1; i >= 0; i--) {
-                        String loginFriend = list.get(loginUser).pedidosDeAmizades.get(i);
+                try {
+                    if (op.equals("t") || op.equals("T")) {
+                        for (int i=list.get(loginUser).pedidosDeAmizades.size()-1; i >= 0; i--) {
+                            String loginFriend = list.get(loginUser).pedidosDeAmizades.get(i);
+                            list.get(loginUser).friends.add(list.get(loginFriend));
+                            list.get(loginFriend).friends.add(list.get(loginUser));
+                            list.get(loginUser).pedidosDeAmizades.remove(i);
+                        }
+                        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        System.out.println("\tSolicitações aceitas com sucesso!");
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                    }
+                    else {
+                        int iAux = Integer.parseInt(op);
+                        String loginFriend = list.get(loginUser).pedidosDeAmizades.get(iAux);
+                        //adicionando a lista de amigos de 'idUser' e 'idFriend'
                         list.get(loginUser).friends.add(list.get(loginFriend));
                         list.get(loginFriend).friends.add(list.get(loginUser));
-                        list.get(loginUser).pedidosDeAmizades.remove(i);
-                    }
-                    System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    System.out.println("\tSolicitações aceitas com sucesso!");
-                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                }
-                else {
-                    int iAux = Integer.parseInt(op);
-                    String loginFriend = list.get(loginUser).pedidosDeAmizades.get(iAux);
-                    //adicionando a lista de amigos de 'idUser' e 'idFriend'
-                    list.get(loginUser).friends.add(list.get(loginFriend));
-                    list.get(loginFriend).friends.add(list.get(loginUser));
-                    //removendo o pedido de 'idFriend' da lista de solicitacoes de 'idUser'
-                    list.get(loginUser).pedidosDeAmizades.remove(iAux);
+                        //removendo o pedido de 'idFriend' da lista de solicitacoes de 'idUser'
+                        list.get(loginUser).pedidosDeAmizades.remove(iAux);
 
-                    System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    System.out.println("Usuários " + "'" + loginUser + "'" + " e " + "'" + loginFriend + "'" + " agora são amig@s! ^_^");
-                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        System.out.println("Usuários " + "'" + loginUser + "'" + " e " + "'" + loginFriend + "'" + " agora são amig@s! ^_^");
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Digito inválido.");
                 }
             }
             

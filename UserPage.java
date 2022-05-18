@@ -8,12 +8,9 @@ public class UserPage extends MainPageIface{
     private String opcao;
     private Relacionamentos relation = new Relacionamentos();
     
-    public boolean isUser(String login, String senha) {
-        if (this.usersList.get(login) != null) {
-            if (this.usersList.get(login).getPass().equals(senha))
-                return true;
-        }
-        return false;
+    public void isUser(String login, String senha) {
+        UserIface u = this.usersList.get(login);
+        u.getName();
     }
 
     public void createUser() {
@@ -60,11 +57,13 @@ public class UserPage extends MainPageIface{
                     System.out.println("Pesquisar login: ");
                     String loginDestiny = keyboard.nextLine();
                     
-                    if (usersList.get(loginDestiny) != null)
+                    try {
+                        UserIface u = usersList.get(loginDestiny);    
                         relation.sendMessageFeed(login, loginDestiny, this.usersList);
-                    else {
+                        u.getName();
+                    } catch (NullPointerException npe) {
                         System.out.println("\n=========================================");
-                        System.out.println("    Usuário não encontrado");
+                        System.out.println("    Usuário não encontrado :/");
                         System.out.println("=========================================\n");
                     }
                 }
@@ -104,11 +103,13 @@ public class UserPage extends MainPageIface{
                     }
                 }
                 else if (opcao.equals("2")) {
+                try {
                     System.out.println("Digite o nome da comunidade: ");
                     String nameCommunity = keyboard.nextLine();
-                    if (this.communitys.get(nameCommunity) != null) {
-                        this.communitys.get(nameCommunity).addMember(this.usersList.get(login));
-                    }
+                    this.communitys.get(nameCommunity).addMember(this.usersList.get(login));
+                } catch (NullPointerException npe) {
+                    System.out.println("Comunidade inexistente!!!");
+                }
                 }
                 else if (opcao.equals("3")) {
                     System.out.println("Digite o nome e descrição da comunidade:");

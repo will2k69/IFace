@@ -26,22 +26,29 @@ public class MainPageIface {
                     String log = keyboard.nextLine();
                     System.out.println("Digite sua senha: ");
                     String sen = keyboard.nextLine();
-
-                    if (host.isUser(log, sen)) {
+                    
+                    try {
+                    //usersList.get(log);
+                    /*    if (this.usersList.get(login).getPass().equals(senha))
+                            return true;
+                    }
+                    return false;*/
+                    /*if (host.isUser(log, sen)) {
                         clear();
                         host.inicio(log, sen);
                         break;
-                    }
-                    else {
+                    }*/
+                        host.isUser(log, sen);
+                        host.inicio(log, sen);
+                    } catch (NullPointerException npe) {
                         System.out.println("\n=========================================");
                         System.out.println("ERROR 404: User or pass not found\n");
                         System.out.println("=========================================\n");
-                        System.out.printf("1 - Tentar de novo\n0 - SAIR\n");
-                        opcao = keyboard.nextLine();
-
-                        if (opcao.equals("0"))
-                            break;
                     }
+                    System.out.printf("1 - Tentar de novo\n0 - SAIR\n");
+                    opcao = keyboard.nextLine();
+                    if (opcao.equals("0"))
+                        break;
                 }
             }
             
