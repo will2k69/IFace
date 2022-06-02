@@ -4,6 +4,6 @@
 <p></p>
 <ul>
 <li><ul>"Long Method";
-  <li>Classes(e metódos):
-    UserPage(inicio), Relacionamentos(sendMessage, sendMessageMyFeed, sendMessageFeed).</li></ul></li>
+  <li>UserPage(inicio)</li><li>Relacionamentos(sendMessage, sendMessageMyFeed, sendMessageFeed).</li></ul></li>
+<li></li>
 </ul>
