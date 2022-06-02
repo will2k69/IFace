@@ -1,6 +1,8 @@
 # IFace
 
 <p>CODE SMELLS IDENTIFICADOS</p>
-<ul>
-"Long Method"; Classes(e metódos): UserPage(inicio), Relacionamentos(sendMessageMyFeed, sendMessageFeed)
-  </ul>
+<p></p>
+"Long Method";
+  Classes(e metódos):
+    UserPage(inicio), Relacionamentos(sendMessage, sendMessageMyFeed, sendMessageFeed).
+
