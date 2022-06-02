@@ -28,14 +28,15 @@ public class Relacionamentos implements Relationship{
         while (true) {
             System.out.println("O que deseja fazer?\nTecle 'a' para Aceitar\nTecle 'r' para Rejeitar\n'0' para sair");
             op = keyboard.nextLine();
-            if (op.equals("0"))
-                break;
             
-            else if (op.equals("a") || op.equals("A")) {
-                System.out.println("\nDigite o número da solicitação:\n(Tecle 't' para aceitar TODAS)");
-                op = keyboard.nextLine();
+            try {
+                if (op.equals("0"))
+                    break;
 
-                try {
+                else if (op.equals("a") || op.equals("A")) {
+                    System.out.println("\nDigite o número da solicitação:\n(Tecle 't' para aceitar TODAS)");
+                    op = keyboard.nextLine();
+
                     if (op.equals("t") || op.equals("T")) {
                         for (int i=list.get(loginUser).pedidosDeAmizades.size()-1; i >= 0; i--) {
                             String loginFriend = list.get(loginUser).pedidosDeAmizades.get(i);
@@ -60,31 +61,31 @@ public class Relacionamentos implements Relationship{
                         System.out.println("Usuários " + "'" + loginUser + "'" + " e " + "'" + loginFriend + "'" + " agora são amig@s! ^_^");
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Digito inválido.");
                 }
-            }
-            
-            else if (op.equals("r") || op.equals("R")) {
-                System.out.println("\nDigite o número da solicitação:\n(Tecle 't' para rejeitar TODAS)");
-                op = keyboard.nextLine();
+                
+                else if (op.equals("r") || op.equals("R")) {
+                    System.out.println("\nDigite o número da solicitação:\n(Tecle 't' para rejeitar TODAS)");
+                    op = keyboard.nextLine();
 
-                if (op.equals("t") || op.equals("T")) {
-                    for (int i=list.get(loginUser).pedidosDeAmizades.size()-1; i >= 0; i--)
-                        list.get(loginUser).pedidosDeAmizades.remove(i);
-                    System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    System.out.println("\tTodas as solicitações foram rejeitadas.");
-                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                }
-                else {
-                    int iAux = Integer.parseInt(op);
-                    String loginFriend = list.get(loginUser).pedidosDeAmizades.get(iAux);
-                    list.get(loginUser).pedidosDeAmizades.remove(iAux);
+                    if (op.equals("t") || op.equals("T")) {
+                        for (int i=list.get(loginUser).pedidosDeAmizades.size()-1; i >= 0; i--)
+                            list.get(loginUser).pedidosDeAmizades.remove(i);
+                        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        System.out.println("\tTodas as solicitações foram rejeitadas.");
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                    }
+                    else {
+                        int iAux = Integer.parseInt(op);
+                        String loginFriend = list.get(loginUser).pedidosDeAmizades.get(iAux);
+                        list.get(loginUser).pedidosDeAmizades.remove(iAux);
 
-                    System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    System.out.println("A solicitação do usuário " + "'" + loginFriend + "'" + " foi rejeitada!");
-                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        System.out.println("A solicitação do usuário " + "'" + loginFriend + "'" + " foi rejeitada!");
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                    }
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("\nDigito inválido.");
             }
         }
     }

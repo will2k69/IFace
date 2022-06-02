@@ -87,19 +87,24 @@ public class UserPage extends MainPageIface{
                         System.out.println("=========================================\n");
                         continue;
                     }
-                    opcao = keyboard.nextLine();
-                    int iAux = Integer.parseInt(opcao);
-                    String nomeDaComuna = this.usersList.get(login).myCommunitys.get(iAux);
-                    this.communitys.get(nomeDaComuna).viewMessages();
+                    try {
+                        opcao = keyboard.nextLine();
+                        int iAux = Integer.parseInt(opcao);
+                        String nomeDaComuna = this.usersList.get(login).myCommunitys.get(iAux);
+                        this.communitys.get(nomeDaComuna).viewMessages();
                     
-                    System.out.println("\nEnvie ':q' para sair do chat\n");
-                    while (true) {
-                        String msg = keyboard.nextLine();
-                        if (msg.equals(":q"))
-                            break;
-                        String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-                        msg = "[" + timeStamp + "] " + login + ": " + msg;
-                        communitys.get(nomeDaComuna).sendAMessage(msg);
+                        System.out.println("\nEnvie ':q' para sair do chat\n");
+                        while (true) {
+                            String msg = keyboard.nextLine();
+                            if (msg.equals(":q"))
+                                break;
+                            String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
+                            msg = "[" + timeStamp + "] " + login + ": " + msg;
+                            communitys.get(nomeDaComuna).sendAMessage(msg);
+                        }
+                    } catch(NumberFormatException e) {
+                        System.out.println("\nDigito inválido.");
+                        continue;
                     }
                 }
                 else if (opcao.equals("2")) {
@@ -256,54 +261,59 @@ public class UserPage extends MainPageIface{
                         }
                     }
                     
-                    if (opcao.equals("4") || opcao.equals("5") || opcao.equals("8")) {
-                        System.out.println("Digite aqui: ");
-                        String s = keyboard.nextLine();
-                        switch(opcao) {
-                            case "4":
-                            this.usersList.get(login).dataLongInt.put("Celular (1)", new UserData<Long>(Long.parseLong(s), "Celular (1)"));
-                            System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            System.out.println("\tNúmero (1) adicionado com sucesso!");
-                            break;
-                            
-                            case "5":
-                            this.usersList.get(login).dataLongInt.put("Celular (2)", new UserData<Long>(Long.parseLong(s), "Celular (2)"));
-                            System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            System.out.println("\tNúmero (2) adicionado com sucesso!");
-                            break;
+                    try {
+                        if (opcao.equals("4") || opcao.equals("5") || opcao.equals("8")) {
+                            System.out.println("Digite aqui: ");
+                            String s = keyboard.nextLine();
+                            switch(opcao) {
+                                case "4":
+                                this.usersList.get(login).dataLongInt.put("Celular (1)", new UserData<Long>(Long.parseLong(s), "Celular (1)"));
+                                System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                                System.out.println("\tNúmero (1) adicionado com sucesso!");
+                                break;
+                                
+                                case "5":
+                                this.usersList.get(login).dataLongInt.put("Celular (2)", new UserData<Long>(Long.parseLong(s), "Celular (2)"));
+                                System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                                System.out.println("\tNúmero (2) adicionado com sucesso!");
+                                break;
 
-                            case "8":
-                            this.usersList.get(login).dataLongInt.put("Idade", new UserData<Long>(Long.parseLong(s), "Idade"));
-                            System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            System.out.println("\tIdade adicionada com sucesso!");
-                            break;
+                                case "8":
+                                this.usersList.get(login).dataLongInt.put("Idade", new UserData<Long>(Long.parseLong(s), "Idade"));
+                                System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                                System.out.println("\tIdade adicionada com sucesso!");
+                                break;
+                            }
+                            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                         }
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                    }
 
-                    else if (Integer.parseInt(opcao) <= 9 && Integer.parseInt(opcao) >= 6) {
-                        System.out.println("Digite aqui: ");
-                        String s = keyboard.nextLine();
-                        switch(opcao) {
-                            case "6":
-                            this.usersList.get(login).dataStr.put("Endereço", new UserData<String>(s, "Endereço"));
-                            System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            System.out.println("\tSeu endereço foi adicionado com sucesso!");
-                            break;
+                        else if (Integer.parseInt(opcao) <= 9 && Integer.parseInt(opcao) >= 6) {
+                            System.out.println("Digite aqui: ");
+                            String s = keyboard.nextLine();
+                            switch(opcao) {
+                                case "6":
+                                this.usersList.get(login).dataStr.put("Endereço", new UserData<String>(s, "Endereço"));
+                                System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                                System.out.println("\tSeu endereço foi adicionado com sucesso!");
+                                break;
 
-                            case "7":
-                            this.usersList.get(login).dataStr.put("Data de nascimento", new UserData<String>(s, "Data de nascimento"));
-                            System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            System.out.println("\tData de nascimento adicionada com sucesso!");
-                            break;
+                                case "7":
+                                this.usersList.get(login).dataStr.put("Data de nascimento", new UserData<String>(s, "Data de nascimento"));
+                                System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                                System.out.println("\tData de nascimento adicionada com sucesso!");
+                                break;
 
-                            case "9":
-                            this.usersList.get(login).dataStr.put("Signo", new UserData<String>(s, "Signo"));
-                            System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                            System.out.println("\tSeu signo foi adicionado com sucesso!");
-                            break;
+                                case "9":
+                                this.usersList.get(login).dataStr.put("Signo", new UserData<String>(s, "Signo"));
+                                System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                                System.out.println("\tSeu signo foi adicionado com sucesso!");
+                                break;
+                            }
+                            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                         }
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                    } catch(NumberFormatException e) {
+                        System.out.println("\nDigito inválido.");
+                        continue;
                     }
                 }
             }
