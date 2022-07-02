@@ -28,16 +28,6 @@ public class MainPageIface {
                     String sen = keyboard.nextLine();
                     
                     try {
-                    //usersList.get(log);
-                    /*    if (this.usersList.get(login).getPass().equals(senha))
-                            return true;
-                    }
-                    return false;*/
-                    /*if (host.isUser(log, sen)) {
-                        clear();
-                        host.inicio(log, sen);
-                        break;
-                    }*/
                         host.isUser(log, sen);
                         host.inicio(log, sen);
                     } catch (NullPointerException npe) {
