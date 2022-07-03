@@ -116,6 +116,7 @@ public class Relacionamentos implements Relationship{
     @Override
     public void sendMessageMyFeed(String loginUser, HashMap<String, UserIface> list) {
         System.out.println("\n=====================FEED DE NOTÍCIAS=====================");
+        System.out.println(list.get(loginUser).getName());
         for (String historico: list.get(loginUser).myFeed) {
             for (int i=1; i < historico.length(); i++) {
                 System.out.print(historico.charAt(i));

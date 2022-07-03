@@ -9,6 +9,9 @@ public class MainPageIface {
     protected HashMap<String, UserIface> trash = new HashMap<String, UserIface>();
     protected HashMap<String, UserIface> usersList = new HashMap<String, UserIface>();//key=login
     protected HashMap<String, Comunidades> communitys = new HashMap<String, Comunidades>();//key=nome da community
+
+    public void execute(HashMap<String, UserIface> list) {}
+
     public static void main(String[] args) throws IOException, InterruptedException {
         clear();
         
