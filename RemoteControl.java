@@ -1,21 +1,25 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RemoteControl {
-    ArrayList<MainPageIface> listCommands = new ArrayList<>();
+    ArrayList<ItensForMenu> listCommands = new ArrayList<>();
     int iCommand;
 
     public RemoteControl(int index, String login) {
         this.iCommand = index;
-        this.setListCommands(new AcessFeed(login));
+        this.addListCommands(new AcessFeed(login));
+        this.addListCommands(new AcessCommunity(login));
+        this.addListCommands(new SendMessage(login));
+        this.addListCommands(new SendFriendship(login));
+        this.addListCommands(new ViewFriendRequest(login));
+        this.addListCommands(new ToListFriends(login));
+        this.addListCommands(new InfoAccount(login));
     }
 
-    public void setListCommands(MainPageIface command) {
+    public void addListCommands(ItensForMenu command) {
         this.listCommands.add(command);
     }
 
-    public void run(HashMap<String, UserIface> list) {
-        this.listCommands.get(iCommand).execute(list);
+    public void run(ItensForMenu ifm) {
+        this.listCommands.get(iCommand).execute(ifm);
     }
-
 }

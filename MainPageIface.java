@@ -1,17 +1,11 @@
 import java.io.*;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class MainPageIface {
     private static Scanner keyboard = new Scanner(System.in);
     private static String opcao;
     private static UserPage host = new UserPage();
-    protected HashMap<String, UserIface> trash = new HashMap<String, UserIface>();
-    protected HashMap<String, UserIface> usersList = new HashMap<String, UserIface>();//key=login
-    protected HashMap<String, Comunidades> communitys = new HashMap<String, Comunidades>();//key=nome da community
-
-    public void execute(HashMap<String, UserIface> list) {}
-
+    
     public static void main(String[] args) throws IOException, InterruptedException {
         clear();
         
@@ -54,10 +48,10 @@ public class MainPageIface {
                 System.out.println("Digite sua senha: ");
                 String sen = keyboard.nextLine();
                 
-                if (host.trash.get(log) != null) {
-                    if (host.trash.get(log).getPass().equals(sen)) {
-                        host.usersList.put(log, host.trash.get(log));
-                        host.trash.remove(log);
+                if (host.ifm.trash.get(log) != null) {
+                    if (host.ifm.trash.get(log).getPass().equals(sen)) {
+                        host.ifm.usersList.put(log, host.ifm.trash.get(log));
+                        host.ifm.trash.remove(log);
                         System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         System.out.println("Sua conta foi recuperada, ufa! ^_^\n");
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");

@@ -21,6 +21,7 @@ public class Relacionamentos implements Relationship{
     public void solicitacoes(String loginUser, HashMap<String, UserIface> list) {
         System.out.println("\n=============SOLICITAÇÕES DE AMIZADE=============");
         System.out.println("n° solicitação | login");
+
         for (int i=0; i < list.get(loginUser).pedidosDeAmizades.size(); i++)
             System.out.println(i + "              | " + list.get(loginUser).pedidosDeAmizades.get(i));
         System.out.println("==================================================");
@@ -115,8 +116,7 @@ public class Relacionamentos implements Relationship{
 
     @Override
     public void sendMessageMyFeed(String loginUser, HashMap<String, UserIface> list) {
-        System.out.println("\n=====================FEED DE NOTÍCIAS=====================");
-        System.out.println(list.get(loginUser).getName());
+        System.out.println("\n=====================ESTE É SEU FEED DE NOTÍCIAS, " + list.get(loginUser).getName() + " ^_^ " + "=====================");
         for (String historico: list.get(loginUser).myFeed) {
             for (int i=1; i < historico.length(); i++) {
                 System.out.print(historico.charAt(i));
