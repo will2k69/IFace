@@ -1,7 +1,8 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class UserPage extends MainPageIface{
+public class UserPage {
+    private LimpaTela limpador = new LimpaTela();
     private Scanner keyboard = new Scanner(System.in);
     //private String opcao;
     protected ItensForMenu ifm = new ItensForMenu();
@@ -49,23 +50,8 @@ public class UserPage extends MainPageIface{
                 }
 
                 RemoteControl remoteControl = new RemoteControl(Integer.parseInt(opcao) - 1 , login);
+                limpador.clear();
                 remoteControl.run(this.ifm);
-
-                
-
-                /*else if (opcao.equals("9")) {
-                    System.out.print("\nTem certeza que deseja excluir sua conta?\n(Você pode recuperar seus dados posteriormente)\n1 - Sim\n2 - Não\nDigite aqui: ");
-                    opcao = keyboard.nextLine();
-                    if (opcao.equals("1")) {
-                        String l = login;
-                        trash.put(l, this.usersList.get(login));
-                        this.usersList.remove(login);
-                        System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                        System.out.printf("Usúario '%s' removido com sucesso!\n", l);
-                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                        break;
-                    }
-                }*/
 
                 /*else if (opcao.equals("99")) {
                     System.out.println("========LISTA DE USUÁRIOS========");
@@ -74,13 +60,13 @@ public class UserPage extends MainPageIface{
                         System.out.println();
                     }
                 }*/
-            } catch (IndexOutOfBoundsException iobe) {
+            } catch (IndexOutOfBoundsException | NumberFormatException iobnfe) {
                 System.out.println("\nOpção inválida!\nTente novamente.\n");
             }
 
             System.out.println("Tecle ENTER para sair: ");
             keyboard.nextLine();
-            clear();
+            limpador.clear();
         }
     }
 }

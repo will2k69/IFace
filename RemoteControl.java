@@ -13,6 +13,8 @@ public class RemoteControl {
         this.addListCommands(new ViewFriendRequest(login));
         this.addListCommands(new ToListFriends(login));
         this.addListCommands(new InfoAccount(login));
+        this.addListCommands(new ModifyAccount(login));
+        this.addListCommands(new DeleteAccount(login));
     }
 
     public void addListCommands(ItensForMenu command) {

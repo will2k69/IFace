@@ -41,7 +41,7 @@ public class AcessCommunity extends ItensForMenu implements Command {
                     msg = "[" + timeStamp + "] " + login + ": " + msg;
                     ifm.communitys.get(nomeDaComuna).sendAMessage(msg);
                 }
-            } catch(NumberFormatException e) {
+            } catch(IndexOutOfBoundsException | NumberFormatException e) {
                 System.out.println("\nDigito inválido.");
                 return;
             }

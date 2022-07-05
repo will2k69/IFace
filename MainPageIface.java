@@ -5,10 +5,11 @@ public class MainPageIface {
     private static Scanner keyboard = new Scanner(System.in);
     private static String opcao;
     private static UserPage host = new UserPage();
+    private static LimpaTela limpador = new LimpaTela();
     
     public static void main(String[] args) throws IOException, InterruptedException {
-        clear();
-        
+        limpador.clear();
+
         while (true) {
             System.out.println("================IFace================");
             System.out.println("Bem-vind@ a página inicial do IF@ce!");
@@ -26,6 +27,7 @@ public class MainPageIface {
                     
                     try {
                         host.isUser(log, sen);
+                        limpador.clear();
                         host.inicio(log, sen);
                     } catch (NullPointerException npe) {
                         System.out.println("\n=========================================");
@@ -68,16 +70,16 @@ public class MainPageIface {
         
             System.out.println("tecle ENTER para sair: ");
             keyboard.nextLine();
-            clear();
+            limpador.clear();
         }
         keyboard.close();
     }
 
-    //função para limpar tela
+    /*//função para limpar tela
     static void clear() throws IOException, InterruptedException{
         if (System.getProperty("os.name").contains("Windows"))
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         else
             new ProcessBuilder("clear").inheritIO().start().waitFor();
-    }
+    }*/
 }
