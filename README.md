@@ -4,8 +4,12 @@
 <p></p>
 <ul>
 <li><ul>"Long Method";
-  <li>UserPage(inicio), "Command"</li><li>Relacionamentos(sendMessage, sendMessageMyFeed, sendMessageFeed).</li></ul></li>
+  <li>UserPage(inicio) -> "Command"</li><li>Relacionamentos(sendMessage, sendMessageMyFeed, sendMessageFeed).</li></ul></li>
 <li><ul>"Lazy Class";
 <li>UserPage</li>
 <li>MainPageIface</li>
 </ul></li>
+<li><ul>"Long Parameter List";
+  <li>Relacionamentos(sendMessage, sendMessageFeed, solicitarAmizade)</li>
+  </ul>
+Comments
