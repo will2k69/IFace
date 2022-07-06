@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Comunidades implements Community {
+public class Comunidades {
     private String name, description, host;
-    private ArrayList<String> messages = new ArrayList<String>();
+    protected ArrayList<String> messages = new ArrayList<String>();
     private HashMap<String, UserIface> members = new HashMap<String, UserIface>();//key=login | value=membros pertencentes a comunidade
     
     

@@ -1,15 +1,10 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
+import java.util.*;
 
-public class Relacionamentos implements Relationship{
+public class Relacionamentos extends ItensForMenu{
 
     Scanner keyboard = new Scanner(System.in);
     String op;
 
-    @Override
     public void solicitarAmizade(String user, String friend, HashMap<String, UserIface> list) {
         list.get(friend).pedidosDeAmizades.add(user);
         System.out.println("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -17,7 +12,6 @@ public class Relacionamentos implements Relationship{
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
 
-    @Override
     public void solicitacoes(String loginUser, HashMap<String, UserIface> list) {
         System.out.println("\n=============SOLICITAÇÕES DE AMIZADE=============");
         System.out.println("n° solicitação | login");
@@ -91,7 +85,6 @@ public class Relacionamentos implements Relationship{
         }
     }
 
-    @Override
     public void sendMessage(String loginUser, String loginDestiny, HashMap<String, UserIface> list) {
         if (list.get(loginUser).conversations.get(loginDestiny) == null) {
             ArrayList<String> frases = new ArrayList<String>();
@@ -104,17 +97,9 @@ public class Relacionamentos implements Relationship{
                 System.out.println(historico);
         }
         System.out.println("\nEnvie ':q' para sair do chat");
-        while (true) {
-            String msg = keyboard.nextLine();
-            if (msg.equals(":q"))
-                break;
-            String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-            String cpy = "[" + timeStamp + "] " + loginUser + ": " + msg;
-            list.get(loginUser).conversations.get(loginDestiny).add(cpy);
-        }
+        this.chatMessage(loginUser, loginDestiny, list);
     }
 
-    @Override
     public void sendMessageMyFeed(String loginUser, HashMap<String, UserIface> list) {
         System.out.println("\n=====================ESTE É SEU FEED DE NOTÍCIAS, " + list.get(loginUser).getName() + " ^_^ " + "=====================");
         for (String historico: list.get(loginUser).myFeed) {
@@ -125,23 +110,9 @@ public class Relacionamentos implements Relationship{
         }
 
         System.out.println("\nDigite ':q' para sair\nDigite ':f' no final da mensagem para ser vista apenas pelos migos ^_^\n");
-        
-        while (true) {
-            String msg = keyboard.nextLine();
-            if (msg.equals(":q"))
-                break;
-            String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-            if (msg.length() > 2 && (msg.charAt(msg.length()-1) == 'f' && msg.charAt(msg.length()-2) == ':')) {
-                msg = msg.substring(0, msg.length()-2);//para remover os dois últimos chars:':f'
-                msg = "f" + "[" + timeStamp + "] " + loginUser + "(amigos)" + ": " + msg;
-            }
-            else
-                msg = "p" + "[" + timeStamp + "] " + loginUser + "(público)" + ": " + msg;
-            list.get(loginUser).myFeed.add(msg);
-        }
+        this.chatMessageWithF(loginUser, list);
     }
 
-    @Override
     public void sendMessageFeed(String loginUser, String loginDestiny, HashMap<String, UserIface> list) {
         System.out.println("\n=============FEED DE NOTÍCIAS D@ " + loginDestiny + "=============");
         boolean friend=false;
@@ -164,13 +135,6 @@ public class Relacionamentos implements Relationship{
         }
 
         System.out.println("\nDigite ':q' para sair\n");
-        while (true) {
-            String msg = keyboard.nextLine();
-            if (msg.equals(":q"))
-                break;
-            String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-            msg = "p" + "[" + timeStamp + "] " + loginUser + ": " + msg;
-            list.get(loginDestiny).myFeed.add(msg);
-        }
+        this.chatMessageF(loginUser, loginDestiny, list);
     }
 }

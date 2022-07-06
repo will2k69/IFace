@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserIface{
     Scanner kScanner = new Scanner(System.in);
@@ -15,12 +12,11 @@ public class UserIface{
     protected HashMap<String, UserData<String>> dataStr = new HashMap<String, UserData<String>>();
 
     
-    //constructor...
     public UserIface(String nome, String login, String senha) {
         setName(nome);
         setLogin(login);
         setPass(senha);
-    }//<
+    }
 
     public void status() {
         System.out.println("\n\n========STATUS========");
@@ -41,7 +37,6 @@ public class UserIface{
         System.out.println("===============================\n");
     }
 
-    //getters
     public String getName() {
         return this.name;
     }
@@ -51,7 +46,7 @@ public class UserIface{
     public String getLogin() {
         return this.login;
     }
-    //setters
+
     public void setName(String n) {
         this.name = n;
     }

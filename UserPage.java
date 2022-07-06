@@ -4,9 +4,7 @@ import java.util.Scanner;
 public class UserPage {
     private LimpaTela limpador = new LimpaTela();
     private Scanner keyboard = new Scanner(System.in);
-    //private String opcao;
     protected ItensForMenu ifm = new ItensForMenu();
-    //private Relacionamentos relation = new Relacionamentos();
     
     public void isUser(String login, String senha) {
         UserIface u = this.ifm.usersList.get(login);
@@ -52,14 +50,6 @@ public class UserPage {
                 RemoteControl remoteControl = new RemoteControl(Integer.parseInt(opcao) - 1 , login);
                 limpador.clear();
                 remoteControl.run(this.ifm);
-
-                /*else if (opcao.equals("99")) {
-                    System.out.println("========LISTA DE USUÁRIOS========");
-                    for (String key: this.usersList.keySet()) {
-                        System.out.printf("Nome: %s\nLogin: %s\nSenha: %s\n", this.usersList.get(key).getName(), this.usersList.get(key).getLogin(), this.usersList.get(key).getPass());
-                        System.out.println();
-                    }
-                }*/
             } catch (IndexOutOfBoundsException | NumberFormatException iobnfe) {
                 System.out.println("\nOpção inválida!\nTente novamente.\n");
             }

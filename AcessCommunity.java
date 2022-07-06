@@ -1,6 +1,3 @@
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 public class AcessCommunity extends ItensForMenu implements Command {
 
     public AcessCommunity(String log) {
@@ -33,14 +30,7 @@ public class AcessCommunity extends ItensForMenu implements Command {
                 ifm.communitys.get(nomeDaComuna).viewMessages();
             
                 System.out.println("\nEnvie ':q' para sair do chat\n");
-                while (true) {
-                    String msg = keyboard.nextLine();
-                    if (msg.equals(":q"))
-                        break;
-                    String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-                    msg = "[" + timeStamp + "] " + login + ": " + msg;
-                    ifm.communitys.get(nomeDaComuna).sendAMessage(msg);
-                }
+                this.chatMessage(nomeDaComuna, ifm.communitys);
             } catch(IndexOutOfBoundsException | NumberFormatException e) {
                 System.out.println("\nDigito inválido.");
                 return;
