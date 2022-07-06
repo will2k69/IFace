@@ -14,7 +14,7 @@
   </ul>
 <li><ul>"Code Duplicated"
 <li>UserPage(linha 97) (Pattern)-> "Template e Extract Method"</li>
-<li>Relacionamentos(linha 166, 128) (Pattern)-> "Template e Extract Method"</li>
+<li>Relacionamentos(linha 166, 128, 106) (Pattern)-> "Template e Extract Method"</li>
 </ul>
 <li><ul>"Comments"
 <li>Relacionamentos(linha 54, 57)
