@@ -50,6 +50,7 @@ public class UserPage {
                 RemoteControl remoteControl = new RemoteControl(Integer.parseInt(opcao) - 1 , login);
                 limpador.clear();
                 remoteControl.run(this.ifm);
+                
             } catch (IndexOutOfBoundsException | NumberFormatException iobnfe) {
                 System.out.println("\nOpção inválida!\nTente novamente.\n");
             }
